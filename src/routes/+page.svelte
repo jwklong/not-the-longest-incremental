@@ -33,6 +33,10 @@
         // @ts-ignore
         window.onum = onum; window.data = data
 
+        if (localStorage.getItem("data")) {
+            data.deserialize(localStorage.getItem("data"))
+        }
+
         let oldtime = 0
         function tick(newtime) {
             data.tick((newtime - oldtime) / 1000)
@@ -41,6 +45,10 @@
             requestAnimationFrame(tick)
         }
         requestAnimationFrame(tick)
+
+        window.onbeforeunload = () => {
+            localStorage.setItem("data", data.serialize())
+        }
     })
 </script>
 

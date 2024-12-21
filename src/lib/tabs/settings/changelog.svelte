@@ -1,5 +1,11 @@
 <div class="main">
     <div>
+        <h3>v0.0.3</h3>
+        <ul>
+            <li>saving data, exporting & importing data and resetting data</li>
+        </ul>
+    </div>
+    <div>
         <h3>v0.0.2</h3>
         <ul>
             <li>another building</li>
