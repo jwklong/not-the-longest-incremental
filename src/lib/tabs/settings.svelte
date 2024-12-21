@@ -1,6 +1,7 @@
 <script>
     import TabsManager from "$lib/tabs/tabsManager.svelte";
     import Changelog from "./settings/changelog.svelte";
+    import Credits from "./settings/credits.svelte";
     import Display from "./settings/display.svelte";
     import Gameplay from "./settings/gameplay.svelte";
 
@@ -22,6 +23,12 @@
             id: "changelog",
             color: ["var(--blue-950)", "#fff"],
             tab: Changelog
+        },
+        {
+            label: "Credits",
+            id: "credits",
+            color: ["var(--orange-900)", "#fff"],
+            tab: Credits
         }
     ]
 </script>

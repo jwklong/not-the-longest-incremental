@@ -25,9 +25,9 @@
 </script>
 
 <span class={spanConfig.outerClass}>
-    {amount.toStringWhole(5)}<span class={spanConfig.symbolClass}>{spanConfig.symbol}</span>{#if showGain}
+    {amount.toStringWhole(5, 3, 3)}<span class={spanConfig.symbolClass}>{spanConfig.symbol}</span>{#if showGain}
     <sub>
-    (+{gain.toStringWhole(5)}/s)
+    (+{gain.toStringWhole(5, 3, 3)}/s)
     </sub>
 {/if}
 </span>

@@ -11,8 +11,14 @@ let zero = OmegaNum(0, 0)
  */
 let onum = (num = 0, num2 = undefined) => OmegaNum(num, num2)
 
-OmegaNum.prototype.toStringWhole = function(digits) {
-    return this.lessThan(OmegaNum(10).pow(digits)) ? this.toFixed() : this.toExponential(digits-1)
+OmegaNum.prototype.toStringWhole = function(limit, pre = limit, precision) {
+    return this.lessThan(OmegaNum(10).pow(limit))
+        ? precision && this.lessThan(OmegaNum(10).pow(precision))
+            ? this.lessThan(OmegaNum(1))
+                ? this.toFixed(precision-1)
+                : this.toPrecision(precision) 
+            : this.toFixed()
+        : this.toExponential(pre-1)
 }
 
 export default onum

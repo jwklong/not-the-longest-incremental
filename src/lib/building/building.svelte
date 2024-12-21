@@ -10,7 +10,7 @@
     let image = $derived(building.image)
     let name = $derived(building.name)
     let amount = $state(building.amount)
-    let cost = $state(building.cost())
+    let cost = $derived(building.cost)
     let effect = $state(building.effect())
     let canBuy = $state(building.canBuy())
     let visible = $state(building.visible())
@@ -18,7 +18,6 @@
     onMount(() => {
         function update() {
             amount = building.amount
-            cost = building.cost()
             effect = building.effect()
             canBuy = building.canBuy()
             visible = building.visible()
@@ -31,13 +30,13 @@
 {#if visible}
     <div class="main">
         <img src={image} alt="" />
-        <span>{amount.toStringWhole(5)} {name}s</span>
+        <span>{amount.toStringWhole(5, 3)} {name}s</span>
         <span>(+<Resource id={effect[1]} amountOverride={effect[0]} />/s)</span>
         <Button
             disabled={!canBuy}
             on:click={() => building.buy()}
             color={["var(--green-300)"]}
-        >Buy (<Resource id={cost[1]} amountOverride={cost[0]} />)</Button>
+        >Buy (<Resource id={cost[1]} amountOverride={cost[0].eval(amount)} />)</Button>
     </div>
 {/if}
 

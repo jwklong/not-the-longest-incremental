@@ -23,7 +23,6 @@
     button:is(.active, :active):not(:disabled) {
         filter: brightness(0.93);
         border-bottom-width: 0;
-        margin-top: 2px;
     }
 
     button:disabled {

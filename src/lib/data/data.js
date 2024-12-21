@@ -1,6 +1,7 @@
 import Building from "$lib/building/building"
 import Layer from "$lib/layer/layer"
 import Resource from "$lib/resource/resource"
+import Upgrade from "$lib/upgrade/upgrade"
 
 import Points from "./layers/points"
 
@@ -43,6 +44,17 @@ class Data {
             v.amount = v.amount.add(v.gain().mul(dt))
         })
     }
+
+    /** @type {Upgrade[]} */
+    upgrades = []
+
+    /**
+     * @param {string} id
+     * @returns {Upgrade?}
+     */
+    getUpgrade(id) {
+        return this.upgrades.find(v => v.id == id) || null
+    }
 }
 
 let data = new Data
@@ -56,6 +68,8 @@ function loadLayer(layer) {
             data.resources.push(v)
         } else if (v instanceof Building) {
             data.buildings.push(v)
+        } else if (v instanceof Upgrade) {
+            data.upgrades.push(v)
         } else {
             console.warn("Unknown layer type", v)
         }
