@@ -12,9 +12,9 @@ export default [
             return data.getBuilding("maker").amount.gte(1)
         }
 
-        ach.gildedDescription = "Buy 100 Makers."
+        ach.gildedDescription = "Buy 50 Makers."
         ach.gildedRequirement = function() {
-            return data.getBuilding("maker").amount.gte(100)
+            return data.getBuilding("maker").amount.gte(50)
         }
 
         return ach
@@ -76,5 +76,17 @@ export default [
         }
 
         return ach
-    })()
+    })(),
+    (() => {
+        let ach = new Achievement
+        ach.name = "Tough choice"
+        ach.location = [2, 1]
+
+        ach.description = "Buy a Perk."
+        ach.requirement = function() {
+            return data.getUpgrade('bp1').cost()[0].gt(4)
+        }
+
+        return ach
+    })(),
 ]

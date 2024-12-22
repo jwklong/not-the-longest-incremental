@@ -1,5 +1,13 @@
 <div class="main">
     <div>
+        <h3>v0.0.6</h3>
+        <ul>
+            <li>booster perks</li>
+            <li>milestones</li>
+            <li>1 achievement</li>
+        </ul>
+    </div>
+    <div>
         <h3>v0.0.5</h3>
         <ul>
             <li>achievements</li>

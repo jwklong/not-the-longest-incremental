@@ -42,8 +42,20 @@ export default class Building {
 
     buy() {
         if (!this.canBuy()) return
-        data.getResource(this.cost[1]).amount = data.getResource(this.cost[1]).amount.sub(this.cost[0].eval(this.amount))
+        data.getResource(this.cost[1]).amount = data.getResource(this.cost[1]).amount.sub(
+            this.cost[0].eval(this.amount)
+        )
         this.amount = this.amount.add(1)
+        this.onBuy()
+    }
+
+    maxBuy() {
+        if (!this.canBuy()) return
+        let maxLevel = this.cost[0].evalHighestLevel(data.getResource(this.cost[1]).amount)
+        data.getResource(this.cost[1]).amount = data.getResource(this.cost[1]).amount.sub(
+            this.cost[0].eval(maxLevel.sub(1))
+        )
+        this.amount = maxLevel
         this.onBuy()
     }
 

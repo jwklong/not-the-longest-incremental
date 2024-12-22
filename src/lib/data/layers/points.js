@@ -23,13 +23,28 @@ Points.gain = function() {
     return base
 }
 
+function globalPointsBoost(num) {
+    if (data.getUpgrade("p1").bought) num = num.mul(data.getUpgrade("p1").effect())
+    if (data.getUpgrade("p2").bought) num = num.mul(data.getUpgrade("p2").effect())
+    num = num.mul(data.getBuilding('booster').effect()[0])
+    if (data.getUpgrade("bp1").bought) num = num.mul(data.getUpgrade("bp1").effect())
+    if (data.getBuilding('booster').amount.gte(3)) num = num.mul(3)
+    return num
+}
+
 import MakerImage from "$lib/assets/buildings/maker.svg";
 let maker = new Building("maker")
 maker.image = MakerImage
 maker.name = "Maker"
 maker.cost = [
     new Cost({
-        base: onum(10),
+        base: () => {
+            let base = onum(10)
+
+            if (data.getUpgrade('bp3').bought) base = base.div(data.getUpgrade('bp3').effect())
+
+            return base
+        },
         multiplicative: onum(1.4)
     }), "points"
 ]
@@ -37,9 +52,8 @@ maker.effect = function() {
     let base = onum(1)
     base = base.mul(this.amount)
 
-    if (data.getUpgrade("p1").bought) base = base.mul(data.getUpgrade("p1").effect())
-    if (data.getUpgrade("p2").bought) base = base.mul(data.getUpgrade("p2").effect())
-    base = base.mul(data.getBuilding('booster').effect()[0])
+    base = globalPointsBoost(base)
+    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.02).pow(data.getBuilding('generator').amount))
     
     return [base, "points"]
 }
@@ -50,7 +64,13 @@ generator.image = GeneratorImage
 generator.name = "Generator"
 generator.cost = [
     new Cost({
-        base: onum(250),
+        base: () => {
+            let base = onum(250)
+
+            if (data.getUpgrade('bp3').bought) base = base.div(data.getUpgrade('bp3').effect())
+
+            return base
+        },
         multiplicative: onum(1.6)
     }), "points"
 ]
@@ -58,14 +78,13 @@ generator.effect = function() {
     let base = onum(10)
     base = base.mul(this.amount)
 
-    if (data.getUpgrade("p1").bought) base = base.mul(data.getUpgrade("p1").effect())
-    if (data.getUpgrade("p2").bought) base = base.mul(data.getUpgrade("p2").effect())
-        base = base.mul(data.getBuilding('booster').effect()[0])
-    
+    base = globalPointsBoost(base)
+    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.02).pow(data.getBuilding('producer').amount))
+
     return [base, "points"]
 }
 generator.visible = function() {
-    return data.getBuilding('maker').amount.gte(1)
+    return data.getBuilding('maker').amount.gte(1) || data.getLayer('booster').hasReset
 }
 
 import ProducerImage from "$lib/assets/buildings/producer.svg";
@@ -74,7 +93,13 @@ producer.image = ProducerImage
 producer.name = "Producer"
 producer.cost = [
     new Cost({
-        base: onum(10000),
+        base: () => {
+            let base = onum(10000)
+
+            if (data.getUpgrade('bp3').bought) base = base.div(data.getUpgrade('bp3').effect())
+
+            return base
+        },
         multiplicative: onum(1.8)
     }), "points"
 ]
@@ -82,14 +107,12 @@ producer.effect = function() {
     let base = onum(100)
     base = base.mul(this.amount)
 
-    if (data.getUpgrade("p1").bought) base = base.mul(data.getUpgrade("p1").effect())
-    if (data.getUpgrade("p2").bought) base = base.mul(data.getUpgrade("p2").effect())
-    base = base.mul(data.getBuilding('booster').effect()[0])
+    base = globalPointsBoost(base)
     
     return [base, "points"]
 }
 producer.visible = function() {
-    return data.getBuilding('generator').amount.gte(5)
+    return data.getBuilding('generator').amount.gte(5) || data.getLayer('booster').hasReset
 }
 
 let p1 = new Upgrade("p1")
@@ -102,6 +125,7 @@ p1.effect = function() {
     let base = data.buildings.reduce((a, b) => a.add(b.amount), onum())
     base = base.add(1)
     base = base.logBase(10)
+    if (data.getBuilding('booster').amount.gte(4)) base = base.pow(1.2)
     base = base.add(1)
     
     return base
@@ -120,7 +144,8 @@ p2.effect = function() {
     let base = data.getResource("points").amount
     base = base.add(1)
     if (data.getUpgrade('p4').bought) {
-        base = base.root(12)
+        base = base.root(8)
+        base = base.mul(1.5)
     } else {
         base = base.logBase(15)
         base = base.add(1)
@@ -144,7 +169,7 @@ p3.visible = function() {
 
 let p4 = new Upgrade("p4")
 p4.cost = function() {
-    let base = onum(1e8)
+    let base = onum(5e7)
     
     return [base, "points"]
 }

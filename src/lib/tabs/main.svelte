@@ -1,9 +1,31 @@
 <script>
     import Building from "$lib/building/building.svelte";
+    import Button from "$lib/button.svelte";
+    import data from "$lib/data/data";
     import Resource from "$lib/resource/resource.svelte";
     import Upgrade from "$lib/upgrade/upgrade.svelte";
+    import { onMount } from "svelte";
+
+    let maxBtn = $state(false)
+
+    onMount(() => {
+        function main() {
+            maxBtn = data.getLayer("booster").hasReset
+            requestAnimationFrame(main)
+        }
+        requestAnimationFrame(main)
+    })
+
+    function buyMax() {
+        data.getBuilding("producer").maxBuy()
+        data.getBuilding("generator").maxBuy()
+        data.getBuilding("maker").maxBuy()
+    }
 </script>
 <div class="main">
+    {#if maxBtn}
+        <Button on:click={buyMax}>Buy max</Button>
+    {/if}
     <div class="generators">
         <Building id="maker">
             {#snippet generation(effect)}
