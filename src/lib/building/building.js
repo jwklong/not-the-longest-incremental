@@ -38,10 +38,13 @@ export default class Building {
         return data.getResource(this.cost[1]).amount.gte(this.cost[0].eval(this.amount))
     }
 
+    onBuy() {}
+
     buy() {
         if (!this.canBuy()) return
         data.getResource(this.cost[1]).amount = data.getResource(this.cost[1]).amount.sub(this.cost[0].eval(this.amount))
         this.amount = this.amount.add(1)
+        this.onBuy()
     }
 
     visible() {

@@ -26,7 +26,7 @@
     });
 </script>
 
-{#if visible}
+{#if visible || bought}
     <div class="main">
         <Button
             color={["var(--green-300)"]}
@@ -35,7 +35,11 @@
             on:click={() => upgrade.buy()}
         >
             {@render desc(effect)}<br>
-            <Resource id={cost[1]} amountOverride={cost[0]} />
+            {#if bought}
+                <b>BOUGHT</b>
+            {:else}
+                <Resource id={cost[1]} amountOverride={cost[0]} />
+            {/if}
         </Button>
     </div>
 {/if}

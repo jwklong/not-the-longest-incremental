@@ -4,7 +4,7 @@
     import Resource from "$lib/resource/resource.svelte";
     import { onMount } from "svelte";
 
-    let { id } = $props()
+    let { id, generation } = $props()
 
     let building = $state(data.getBuilding(id))
     let image = $derived(building.image)
@@ -30,8 +30,10 @@
 {#if visible}
     <div class="main">
         <img src={image} alt="" />
-        <span>{amount.toStringWhole(5, 3)} {name}s</span>
-        <span>(+<Resource id={effect[1]} amountOverride={effect[0]} />/s)</span>
+        <span>
+            {amount.toStringWhole(5, 3)} {name}s
+            {@render generation(effect)}
+        </span>
         <Button
             disabled={!canBuy}
             on:click={() => building.buy()}

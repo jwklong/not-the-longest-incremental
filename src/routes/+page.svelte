@@ -3,6 +3,7 @@
     import onum from "$lib/onum";
     import Resource from "$lib/resource/resource.svelte";
     import Achievements from "$lib/tabs/achievements.svelte";
+    import Boosters from "$lib/tabs/boosters.svelte";
     import Main from "$lib/tabs/main.svelte";
     import Settings from "$lib/tabs/settings.svelte";
     import TabsManager from "$lib/tabs/tabsManager.svelte";
@@ -14,6 +15,13 @@
             id: "main",
             color: ["#fff"],
             tab: Main
+        },
+        {
+            label: "Boosters",
+            id: "boosters",
+            color: ["var(--green-300)"],
+            visible: () => data.getLayer('booster').hasReset,
+            tab: Boosters
         },
         {
             label: "Achievements",

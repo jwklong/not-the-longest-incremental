@@ -5,8 +5,12 @@ import Upgrade from "$lib/upgrade/upgrade"
 import onum from "$lib/onum";
 
 import Points from "./layers/points"
+import Boosters from "./layers/boosters";
 
 class Data {
+    /** @type {number} */
+    timeSpent = 0
+
     /** @type {Layer[]} */
     layers = []
 
@@ -40,12 +44,6 @@ class Data {
         return this.buildings.find(v => v.id == id) || null
     }
 
-    tick(dt) {
-        this.resources.forEach(v => {
-            v.amount = v.amount.add(v.gain().mul(dt))
-        })
-    }
-
     /** @type {Upgrade[]} */
     upgrades = []
 
@@ -57,16 +55,33 @@ class Data {
         return this.upgrades.find(v => v.id == id) || null
     }
 
+    tick(dt) {
+        this.timeSpent += dt
+
+        this.layers.forEach(v => {
+            v.timeSpent = v.timeSpent + dt
+        })
+
+        this.resources.forEach(v => {
+            v.amount = v.amount.add(v.gain().mul(dt))
+        })
+    }
+
     serialize() {
         let object = {
             layers: {},
             resources: {},
             buildings: {},
-            upgrades: {}
+            upgrades: {},
+
+            timeSpent: this.timeSpent
         }
 
         for (let layer of this.layers) {
-            //todo
+            object.layers[layer.id] = {
+                timeSpent: layer.timeSpent,
+                resets: layer.resets.toJSON()
+            }
         }
 
         for (let resource of this.resources) {
@@ -93,11 +108,14 @@ class Data {
     deserialize(input) {
         let object = JSON.parse(atob(decodeURIComponent(input)))
 
+        this.timeSpent = object.timeSpent
+
         for (let layerID of Object.keys(object.layers || {})) {
             let loadedLayer = object.layers[layerID]
             let layer = this.getLayer(layerID)
             if (layer) {
-                //todo
+                layer.timeSpent = loadedLayer.timeSpent || 0
+                layer.resets = onum(loadedLayer.resets || 0)
             }
         }
 
@@ -105,7 +123,7 @@ class Data {
             let loadedResource = object.resources[resourceID]
             let resource = this.getResource(resourceID)
             if (resource) {
-                resource.amount = onum(loadedResource.amount)
+                resource.amount = onum(loadedResource.amount || 0)
             }
         }
 
@@ -113,7 +131,7 @@ class Data {
             let loadedBuilding = object.buildings[buildingID]
             let building = this.getBuilding(buildingID)
             if (building) {
-                building.amount = onum(loadedBuilding.amount)
+                building.amount = onum(loadedBuilding.amount || 0)
             }
         }
 
@@ -121,7 +139,7 @@ class Data {
             let loadedUpgrade = object.upgrades[upgradeID]
             let upgrade = this.getUpgrade(upgradeID)
             if (upgrade) {
-                upgrade.bought = loadedUpgrade.bought
+                upgrade.bought = Boolean(loadedUpgrade.bought)
             }
         }
     }
@@ -147,5 +165,6 @@ function loadLayer(layer) {
 }
 
 loadLayer(Points)
+loadLayer(Boosters)
 
 export default data

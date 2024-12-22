@@ -25,7 +25,7 @@
 </script>
 
 <span class={spanConfig.outerClass}>
-    {amount.toStringWhole(5, 3, 3)}<span class={spanConfig.symbolClass}>{spanConfig.symbol}</span>{#if showGain}
+    {amount.toStringWhole(5, 3, 3)}<span class={spanConfig.symbolClass}>{spanConfig.symbol}</span>{#if showGain && gain.gt(0)}
     <sub>
     (+{gain.toStringWhole(5, 3, 3)}/s)
     </sub>
@@ -35,6 +35,11 @@
 <style>
     .symbolPoints {
         color: var(--blue-900);
+        font-weight: bold;
+    }
+
+    .symbolBP {
+        color: var(--green-900);
         font-weight: bold;
     }
 
