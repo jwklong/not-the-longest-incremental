@@ -14,7 +14,7 @@
         border-bottom: 2px solid #0004;
         border-radius: 4px;
         display: block;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 1rem calc(0.5rem + 1px);
         cursor: pointer;
         font-weight: 500;
         transition: filter 0.2s;
@@ -23,6 +23,8 @@
     button:is(.active, :active):not(:disabled) {
         filter: brightness(0.93);
         border-bottom-width: 0;
+        padding-bottom: calc(0.5rem - 1px);
+        margin-top: 2px;
     }
 
     button:disabled {

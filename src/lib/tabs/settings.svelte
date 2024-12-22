@@ -27,7 +27,7 @@
         {
             label: "Credits",
             id: "credits",
-            color: ["var(--orange-900)", "#fff"],
+            color: ["var(--gold-800)", "#fff"],
             tab: Credits
         }
     ]

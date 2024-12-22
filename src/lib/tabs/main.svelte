@@ -30,18 +30,23 @@
         <Upgrade id="p1">
             {#snippet desc(effect)}
             Gain more points based on total buildings bought.<br>
-            Effect: x{effect.toStringWhole(5, 3, 3)}
+            Effect: x<Resource id="points" amountOverride={effect} />
             {/snippet}
         </Upgrade>
         <Upgrade id="p2">
             {#snippet desc(effect)}
             Gain more points based on your points.<br>
-            Effect: x{effect.toStringWhole(5, 3, 3)}
+            Effect: x<Resource id="points" amountOverride={effect} />
             {/snippet}
         </Upgrade>
         <Upgrade id="p3">
             {#snippet desc(effect)}
             Unlock boosters.
+            {/snippet}
+        </Upgrade>
+        <Upgrade id="p4">
+            {#snippet desc(effect)}
+            Upgrade 2 has a better formula.
             {/snippet}
         </Upgrade>
     </div>
@@ -63,5 +68,6 @@
         display: flex;
         gap: 16px;
         flex-wrap: wrap;
+        width: 848px;
     }
 </style>

@@ -30,7 +30,7 @@
     <div class="row">
         <Button on:click={importData}>Import data</Button>
         <Button on:click={exportData}>Export data</Button>
-        <Button on:click={resetData} color={["var(--red-400)"]}>Reset data</Button>
+        <Button on:click={resetData} color={["var(--red-300)"]}>Reset data</Button>
     </div>
 </div>
 

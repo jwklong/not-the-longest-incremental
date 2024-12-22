@@ -153,6 +153,18 @@
         --purple-900: #4c1d95;
         --purple-950: #2e1065;
 
+        --gold-50: #fcfbea;
+        --gold-100: #f9f6c8;
+        --gold-200: #f5eb93;
+        --gold-300: #eed84f;
+        --gold-400: #e8c527;
+        --gold-500: #d8ae1a;
+        --gold-600: #ba8714;
+        --gold-700: #956313;
+        --gold-800: #7c4e17;
+        --gold-900: #69411a;
+        --gold-950: #3d220b;
+
 
         width: 100%;
         height: 100%;
@@ -160,6 +172,7 @@
         background-color: var(--blue-400);
         color: var(--blue-950);
         box-sizing: border-box;
+        overflow-y: scroll;
 
         display: flex;
         flex-direction: column;

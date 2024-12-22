@@ -6,6 +6,8 @@ import onum from "$lib/onum";
 
 import Points from "./layers/points"
 import Boosters from "./layers/boosters";
+import achievements from "./achievements";
+import Achievement from "$lib/achievement/achievement";
 
 class Data {
     /** @type {number} */
@@ -55,6 +57,9 @@ class Data {
         return this.upgrades.find(v => v.id == id) || null
     }
 
+    /** @type {Achievement[]} */
+    achievements = achievements
+
     tick(dt) {
         this.timeSpent += dt
 
@@ -65,6 +70,15 @@ class Data {
         this.resources.forEach(v => {
             v.amount = v.amount.add(v.gain().mul(dt))
         })
+
+        this.achievements.forEach(v => {
+            if (v.requirement()) {
+                v.unlocked = true
+            }
+            if (v.gildedRequirement() && v.unlocked) {
+                v.gilded = true
+            }
+        })
     }
 
     serialize() {
@@ -73,6 +87,7 @@ class Data {
             resources: {},
             buildings: {},
             upgrades: {},
+            achievements: {},
 
             timeSpent: this.timeSpent
         }
@@ -99,6 +114,13 @@ class Data {
         for (let upgrade of this.upgrades) {
             object.upgrades[upgrade.id] = {
                 bought: upgrade.bought
+            }
+        }
+
+        for (let achievement of this.achievements) {
+            object.achievements[achievement.location.join("")] = {
+                unlocked: achievement.unlocked,
+                gilded: achievement.gilded
             }
         }
 
@@ -140,6 +162,14 @@ class Data {
             let upgrade = this.getUpgrade(upgradeID)
             if (upgrade) {
                 upgrade.bought = Boolean(loadedUpgrade.bought)
+            }
+        }
+
+        for (let achievement of this.achievements) {
+            let loadedAchievement = (object.achievements || {})[achievement.location.join("")]
+            if (loadedAchievement) {
+                achievement.unlocked = Boolean(loadedAchievement.unlocked)
+                achievement.gilded = Boolean(loadedAchievement.gilded)
             }
         }
     }

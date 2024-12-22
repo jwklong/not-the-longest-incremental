@@ -119,8 +119,12 @@ p2.cost = function() {
 p2.effect = function() {
     let base = data.getResource("points").amount
     base = base.add(1)
-    base = base.logBase(15)
-    base = base.add(1)
+    if (data.getUpgrade('p4').bought) {
+        base = base.root(12)
+    } else {
+        base = base.logBase(15)
+        base = base.add(1)
+    }
     
     return base
 }
@@ -138,6 +142,16 @@ p3.visible = function() {
     return data.getUpgrade('p1').bought || data.getUpgrade('p2').bought
 }
 
+let p4 = new Upgrade("p4")
+p4.cost = function() {
+    let base = onum(1e8)
+    
+    return [base, "points"]
+}
+p4.visible = function() {
+    return data.getLayer('booster').hasReset
+}
+
 export default [
     Points,
 
@@ -148,4 +162,5 @@ export default [
     p1,
     p2,
     p3,
+    p4
 ]

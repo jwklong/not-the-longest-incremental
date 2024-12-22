@@ -14,6 +14,7 @@ boosterLayer.resetFunction = function() {
 
     data.getUpgrade("p1").bought = false
     data.getUpgrade("p2").bought = false
+    data.getUpgrade("p4").bought = false
     
     data.getResource("points").amount = onum(10)
 }

@@ -1,5 +1,13 @@
 <div class="main">
     <div>
+        <h3>v0.0.5</h3>
+        <ul>
+            <li>achievements</li>
+            <li>really basic placeholder booster tabs</li>
+            <li>upgrade 4</li>
+        </ul>
+    </div>
+    <div>
         <h3>v0.0.4</h3>
         <ul>
             <li>boosters</li>
