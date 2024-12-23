@@ -1,5 +1,16 @@
 <div class="main">
     <div>
+        <h2>v0.1.0 - Public Release</h2>
+        <ul>
+            <li>im just gonna list everything</li>
+            <li>4 buildings</li>
+            <li>6 upgrades</li>
+            <li>booster layer</li>
+            <li>8 achievements</li>
+            <li>endgame: 14 Boosters</li>
+        </ul>
+    </div>
+    <div>
         <h3>v0.0.6</h3>
         <ul>
             <li>booster perks</li>

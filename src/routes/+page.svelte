@@ -9,6 +9,8 @@
     import TabsManager from "$lib/tabs/tabsManager.svelte";
     import { onMount } from "svelte";
 
+    import Icon from "$lib/assets/buildings/generator.svg"
+
     let tabs = [
         {
             label: "Main",
@@ -59,6 +61,11 @@
         }
     })
 </script>
+
+<svelte:head>
+    <link rel="icon" href={Icon} />
+    <title>Not The Longest Incremental</title>
+</svelte:head>
 
 <div class="root">
     <h1>You have <Resource id="points" showGain /></h1>
@@ -164,6 +171,18 @@
         --gold-800: #7c4e17;
         --gold-900: #69411a;
         --gold-950: #3d220b;
+
+        --cyan-50: #eefcfd;
+        --cyan-100: #d5f6f8;
+        --cyan-200: #afedf2;
+        --cyan-300: #78dee8;
+        --cyan-400: #3ac5d6;
+        --cyan-500: #22bed3;
+        --cyan-600: #1c899e;
+        --cyan-700: #1d6e81;
+        --cyan-800: #205a6a;
+        --cyan-900: #1f4c5a;
+        --cyan-950: #0f313d;
 
 
         width: 100%;

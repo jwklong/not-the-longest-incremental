@@ -35,7 +35,7 @@ export default class Building {
     }
 
     canBuy() {
-        return data.getResource(this.cost[1]).amount.gte(this.cost[0].eval(this.amount))
+        return this.visible() && data.getResource(this.cost[1]).amount.gte(this.cost[0].eval(this.amount))
     }
 
     onBuy() {}

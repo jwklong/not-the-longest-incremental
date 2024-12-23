@@ -30,7 +30,7 @@ export default class Upgrade {
 
     canBuy() {
         let cost = this.cost()
-        return data.getResource(cost[1]).amount.gte(cost[0])
+        return this.visible() && data.getResource(cost[1]).amount.gte(cost[0])
     }
 
     buy() {
@@ -38,6 +38,13 @@ export default class Upgrade {
         let cost = this.cost()
         data.getResource(cost[1]).amount = data.getResource(cost[1]).amount.sub(cost[0])
         this.bought = true
+    }
+
+    respec() {
+        if (!this.bought) return
+        this.bought = false
+        let cost = this.cost()
+        data.getResource(cost[1]).amount = data.getResource(cost[1]).amount.add(cost[0])
     }
 
     visible() {

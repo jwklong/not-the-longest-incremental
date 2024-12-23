@@ -7,10 +7,13 @@
     function respec() {
         if (confirm("Are you sure you want to respec? This will perform a booster reset with no reward.")) {
             data.getLayer("booster").reset(true)
-            data.getResource("boosterPoints").amount = data.getResource("boosterPoints").amount.add(data.getUpgrade("bp1").cost()[0].div(8).floor().mul(2))
-            data.getUpgrade("bp1").bought = false
-            data.getUpgrade("bp2").bought = false
-            data.getUpgrade("bp3").bought = false
+            
+            data.getUpgrade("bp1").respec()
+            data.getUpgrade("bp2").respec()
+            data.getUpgrade("bp3").respec()
+            data.getUpgrade("bp4").respec()
+            data.getUpgrade("bp5").respec()
+            data.getUpgrade("bp6").respec()
         }
     }
 </script>
@@ -32,6 +35,23 @@
         <Upgrade id="bp3">
             {#snippet desc(effect)}
             Decrease building price based on your boosters.
+            Effect: /{effect.toStringWhole(5, 3, 3)}
+            {/snippet}
+        </Upgrade>
+        <Upgrade id="bp4">
+            {#snippet desc(effect)}
+            Gain more points based on unspent booster points.<br>
+            Effect: x<Resource id="points" amountOverride={effect} />
+            {/snippet}
+        </Upgrade>
+        <Upgrade id="bp5">
+            {#snippet desc(effect)}
+            Every Booster adds half a Provider effect.
+            {/snippet}
+        </Upgrade>
+        <Upgrade id="bp6">
+            {#snippet desc(effect)}
+            Decrease building price based on your Providers.<br>
             Effect: /{effect.toStringWhole(5, 3, 3)}
             {/snippet}
         </Upgrade>

@@ -22,6 +22,36 @@
         <span>Upgrade 1 has a improved formula.</span>
         <span>4 Boosters</span>
     </Milestone>
+    <Milestone requirement={() => {
+        return data.getBuilding('booster').amount.gte(5)
+    }}>
+        <span>Unlock Fabricators.</span>
+        <span>5 Boosters</span>
+    </Milestone>
+    <Milestone requirement={() => {
+        return data.getBuilding('booster').amount.gte(8)
+    }}>
+        <span>Boosters have a improved effect.</span>
+        <span>8 Boosters</span>
+    </Milestone>
+    <Milestone requirement={() => {
+        return data.getBuilding('booster').amount.gte(9)
+    }}>
+        <span>Max All button also buys upgrades.</span>
+        <span>9 Boosters</span>
+    </Milestone>
+    <Milestone requirement={() => {
+        return data.getBuilding('booster').amount.gte(10)
+    }}>
+        <span>Unlock Providers.</span>
+        <span>10 Boosters</span>
+    </Milestone>
+    <Milestone requirement={() => {
+        return data.getBuilding('booster').amount.gte(12)
+    }}>
+        <span>Unlock a second row of Perks.</span>
+        <span>12 Boosters</span>
+    </Milestone>
 </div>
 
 <style>
