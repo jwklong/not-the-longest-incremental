@@ -1,5 +1,13 @@
 <div class="main">
     <div>
+        <h3>v0.1.1</h3>
+        <ul>
+            <li>a news ticker! (togglable in settings if you dont like it)</li>
+            <li>revamped milestone look</li>
+            <li>slightly changed achievements color</li>
+        </ul>
+    </div>
+    <div>
         <h2>v0.1.0 - Public Release</h2>
         <ul>
             <li>im just gonna list everything</li>
