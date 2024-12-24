@@ -195,12 +195,13 @@
 
 
         width: 100%;
-        height: 100%;
+        min-height: 100%;
         padding: 8px;
+        padding-bottom: 128px;
         background-color: var(--blue-400);
         color: var(--blue-950);
         box-sizing: border-box;
-        overflow-y: scroll;
+        overflow: hidden;
 
         display: flex;
         flex-direction: column;
