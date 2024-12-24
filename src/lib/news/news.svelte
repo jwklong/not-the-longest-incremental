@@ -23,7 +23,7 @@
             let textWidth = textEl.getBoundingClientRect().width
             let distanceTravel = rootWidth + textWidth
 
-            textEl.style.left = `${t * distanceMultiplier - textWidth}px`
+            textEl.style.right = `${t * distanceMultiplier - textWidth}px`
 
             if (distanceTravel <= t * distanceMultiplier) {
                 change()
