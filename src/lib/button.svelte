@@ -25,6 +25,7 @@
         border-bottom-width: 0;
         padding-bottom: calc(0.5rem - 1px);
         margin-top: 2px;
+        cursor: initial;
     }
 
     button:disabled {
