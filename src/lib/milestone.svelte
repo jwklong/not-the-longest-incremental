@@ -23,14 +23,17 @@
 <style lang="scss">
     .milestone {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         padding: 8px;
-        background-color: var(--red-300);
+        background-color: var(--red-800);
+        color: var(--red-50);
         width: 100%;
         border-radius: 8px;
+        box-shadow: inset 0 0 4px 1px #0008;
     }
     .milestone.active {
-        background-color: var(--green-300);
+        background-color: var(--green-700);
+        color: var(--green-50);
     }
 
     .milestone > :global(*) {
@@ -38,8 +41,8 @@
         min-width: 100px;
 
         &:last-child {
-            text-align: right;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 0.75em;
         }
     }
 </style>

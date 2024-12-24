@@ -21,7 +21,7 @@ class Data {
      * @returns {Layer?}
      */
     getLayer(id) {
-        return this.layers.find(v => v.id == id) || null
+        return this.layers.find(v => v.id == id)
     }
 
     /** @type {Resource[]} */
@@ -32,7 +32,7 @@ class Data {
      * @returns {Resource?}
      */
     getResource(id) {
-        return this.resources.find(v => v.id == id) || null
+        return this.resources.find(v => v.id == id)
     }
 
     /** @type {Building[]} */
@@ -43,7 +43,7 @@ class Data {
      * @returns {Building?}
      */
     getBuilding(id) {
-        return this.buildings.find(v => v.id == id) || null
+        return this.buildings.find(v => v.id == id)
     }
 
     /** @type {Upgrade[]} */
@@ -54,11 +54,15 @@ class Data {
      * @returns {Upgrade?}
      */
     getUpgrade(id) {
-        return this.upgrades.find(v => v.id == id) || null
+        return this.upgrades.find(v => v.id == id)
     }
 
     /** @type {Achievement[]} */
     achievements = achievements
+
+    settings = {
+        disableNews: false
+    }
 
     tick(dt) {
         this.timeSpent += dt
@@ -89,6 +93,7 @@ class Data {
             upgrades: {},
             achievements: {},
 
+            settings: this.settings,
             timeSpent: this.timeSpent
         }
 
@@ -130,34 +135,38 @@ class Data {
     deserialize(input) {
         let object = JSON.parse(atob(decodeURIComponent(input)))
 
-        this.timeSpent = object.timeSpent
+        this.timeSpent = object.timeSpent ?? 0
 
-        for (let layerID of Object.keys(object.layers || {})) {
+        for (let setting of Object.keys(this.settings)) {
+            this.settings[setting] = (object.settings ?? {})[setting] ?? this.settings[setting]
+        }
+
+        for (let layerID of Object.keys(object.layers ?? {})) {
             let loadedLayer = object.layers[layerID]
             let layer = this.getLayer(layerID)
             if (layer) {
-                layer.timeSpent = loadedLayer.timeSpent || 0
-                layer.resets = onum(loadedLayer.resets || 0)
+                layer.timeSpent = loadedLayer.timeSpent ?? 0
+                layer.resets = onum(loadedLayer.resets ?? 0)
             }
         }
 
-        for (let resourceID of Object.keys(object.resources || {})) {
+        for (let resourceID of Object.keys(object.resources ?? {})) {
             let loadedResource = object.resources[resourceID]
             let resource = this.getResource(resourceID)
             if (resource) {
-                resource.amount = onum(loadedResource.amount || 0)
+                resource.amount = onum(loadedResource.amount ?? 0)
             }
         }
 
-        for (let buildingID of Object.keys(object.buildings || {})) {
+        for (let buildingID of Object.keys(object.buildings ?? {})) {
             let loadedBuilding = object.buildings[buildingID]
             let building = this.getBuilding(buildingID)
             if (building) {
-                building.amount = onum(loadedBuilding.amount || 0)
+                building.amount = onum(loadedBuilding.amount ?? 0)
             }
         }
 
-        for (let upgradeID of Object.keys(object.upgrades || {})) {
+        for (let upgradeID of Object.keys(object.upgrades ?? {})) {
             let loadedUpgrade = object.upgrades[upgradeID]
             let upgrade = this.getUpgrade(upgradeID)
             if (upgrade) {
@@ -166,7 +175,7 @@ class Data {
         }
 
         for (let achievement of this.achievements) {
-            let loadedAchievement = (object.achievements || {})[achievement.location.join("")]
+            let loadedAchievement = (object.achievements ?? {})[achievement.location.join("")]
             if (loadedAchievement) {
                 achievement.unlocked = Boolean(loadedAchievement.unlocked)
                 achievement.gilded = Boolean(loadedAchievement.gilded)

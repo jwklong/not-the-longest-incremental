@@ -8,8 +8,9 @@
     import Settings from "$lib/tabs/settings.svelte";
     import TabsManager from "$lib/tabs/tabsManager.svelte";
     import { onMount } from "svelte";
+    import News from "$lib/news/news.svelte";
 
-    import Icon from "$lib/assets/buildings/generator.svg"
+    import Icon from "$lib/assets/buildings/generator.svg";
 
     let tabs = [
         {
@@ -39,12 +40,17 @@
         }
     ]
 
+    let settings = $state(data.settings)
+
     onMount(() => {
         // @ts-ignore
         window.onum = onum; window.data = data
 
         if (localStorage.getItem("data")) {
             data.deserialize(localStorage.getItem("data"))
+            localStorage.removeItem("data")
+        } else if (localStorage.getItem("NTLIdata")) {
+            data.deserialize(localStorage.getItem("NTLIdata"))
         }
 
         let oldtime = 0
@@ -52,12 +58,14 @@
             data.tick((newtime - oldtime) / 1000)
             oldtime = newtime
 
+            settings = data.settings
+
             requestAnimationFrame(tick)
         }
         requestAnimationFrame(tick)
 
         window.onbeforeunload = () => {
-            localStorage.setItem("data", data.serialize())
+            localStorage.setItem("NTLIdata", data.serialize())
         }
     })
 </script>
@@ -68,6 +76,7 @@
 </svelte:head>
 
 <div class="root">
+    {#if !settings.disableNews}<News />{/if}
     <h1>You have <Resource id="points" showGain /></h1>
 
     <TabsManager items={tabs} />
@@ -186,12 +195,13 @@
 
 
         width: 100%;
-        height: 100%;
+        min-height: 100%;
         padding: 8px;
+        padding-bottom: 128px;
         background-color: var(--blue-400);
         color: var(--blue-950);
         box-sizing: border-box;
-        overflow-y: scroll;
+        overflow: hidden;
 
         display: flex;
         flex-direction: column;
