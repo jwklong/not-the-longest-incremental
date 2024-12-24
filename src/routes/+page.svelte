@@ -40,6 +40,8 @@
         }
     ]
 
+    let settings = $state(data.settings)
+
     onMount(() => {
         // @ts-ignore
         window.onum = onum; window.data = data
@@ -52,6 +54,8 @@
         function tick(newtime) {
             data.tick((newtime - oldtime) / 1000)
             oldtime = newtime
+
+            settings = data.settings
 
             requestAnimationFrame(tick)
         }
@@ -69,7 +73,7 @@
 </svelte:head>
 
 <div class="root">
-    <News />
+    {#if !settings.disableNews}<News />{/if}
     <h1>You have <Resource id="points" showGain /></h1>
 
     <TabsManager items={tabs} />
