@@ -51,10 +51,10 @@
         box-shadow: inset 0 0 16px 2px #0008;
     }
     .achievement.completed {
-        background: var(--green-800);
+        background: var(--green-600);
     }
     .achievement.gilded {
-        background: var(--gold-800);
+        background: var(--gold-600);
     }
 
     .title {
