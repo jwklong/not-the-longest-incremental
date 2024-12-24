@@ -44,16 +44,17 @@
     .achievement {
         width: 128px;
         height: 128px;
-        background: linear-gradient(var(--red-900), var(--red-950));
+        background: var(--red-900);
         border-radius: 8px;
         position: relative;
         user-select: none;
+        box-shadow: inset 0 0 16px 2px #0008;
     }
     .achievement.completed {
-        background: linear-gradient(var(--green-600), var(--green-800));
+        background: var(--green-800);
     }
     .achievement.gilded {
-        background: linear-gradient(var(--gold-600), var(--gold-800))
+        background: var(--gold-800);
     }
 
     .title {
