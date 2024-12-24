@@ -19,7 +19,7 @@
     function resetData() {
         if (confirm("Are you sure you want to reset your data? This cannot be reverted!")) {
             window.onbeforeunload = () => {}
-            localStorage.removeItem("data")
+            localStorage.removeItem("NTLIdata")
             location.reload()
         }
     }
