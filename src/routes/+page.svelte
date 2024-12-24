@@ -8,8 +8,9 @@
     import Settings from "$lib/tabs/settings.svelte";
     import TabsManager from "$lib/tabs/tabsManager.svelte";
     import { onMount } from "svelte";
+    import News from "$lib/news/news.svelte";
 
-    import Icon from "$lib/assets/buildings/generator.svg"
+    import Icon from "$lib/assets/buildings/generator.svg";
 
     let tabs = [
         {
@@ -68,6 +69,7 @@
 </svelte:head>
 
 <div class="root">
+    <News />
     <h1>You have <Resource id="points" showGain /></h1>
 
     <TabsManager items={tabs} />
