@@ -48,6 +48,9 @@
 
         if (localStorage.getItem("data")) {
             data.deserialize(localStorage.getItem("data"))
+            localStorage.removeItem("data")
+        } else if (localStorage.getItem("NTLIdata")) {
+            data.deserialize(localStorage.getItem("NTLIdata"))
         }
 
         let oldtime = 0
@@ -62,7 +65,7 @@
         requestAnimationFrame(tick)
 
         window.onbeforeunload = () => {
-            localStorage.setItem("data", data.serialize())
+            localStorage.setItem("NTLIdata", data.serialize())
         }
     })
 </script>
