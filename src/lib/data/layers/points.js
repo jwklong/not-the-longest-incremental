@@ -58,7 +58,7 @@ maker.effect = function() {
 
     base = globalPointsBoost(base)
     if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.02).pow(data.getBuilding('generator').amount))
-    if (data.getUpgrade('p5').bought) base = base.mul(5)
+    if (data.getUpgrade('p5').bought) base = base.mul(10)
     
     return [base, "points"]
 }

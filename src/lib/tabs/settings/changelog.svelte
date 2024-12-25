@@ -1,5 +1,11 @@
 <div class="main">
     <div>
+        <h3>v0.1.2</h3>
+        <ul>
+            <li>buffed 5th upgrade from 5x to 10x</li>
+        </ul>
+    </div>
+    <div>
         <h3>v0.1.1</h3>
         <ul>
             <li>a news ticker! (togglable in settings if you dont like it)</li>

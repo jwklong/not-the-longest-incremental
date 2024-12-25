@@ -94,7 +94,7 @@
         </Upgrade>
         <Upgrade id="p5">
             {#snippet desc(effect)}
-            Makers produce points 5x faster.
+            Makers produce points 10x faster.
             {/snippet}
         </Upgrade>
         <Upgrade id="p6">
