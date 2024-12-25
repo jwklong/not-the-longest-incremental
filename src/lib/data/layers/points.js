@@ -57,7 +57,7 @@ maker.effect = function() {
     base = base.mul(this.amount)
 
     base = globalPointsBoost(base)
-    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.02).pow(data.getBuilding('generator').amount))
+    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(data.getBuilding('generator').amount))
     if (data.getUpgrade('p5').bought) base = base.mul(10)
     
     return [base, "points"]
@@ -85,7 +85,7 @@ generator.effect = function() {
     base = base.mul(this.amount)
 
     base = globalPointsBoost(base)
-    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.02).pow(data.getBuilding('producer').amount))
+    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(data.getBuilding('producer').amount))
 
     return [base, "points"]
 }
@@ -115,7 +115,7 @@ producer.effect = function() {
     base = base.mul(this.amount)
 
     base = globalPointsBoost(base)
-    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.02).pow(data.getBuilding('fabricator').amount))
+    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(data.getBuilding('fabricator').amount))
 
     return [base, "points"]
 }
