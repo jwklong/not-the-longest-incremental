@@ -6,6 +6,7 @@
             <li>removed gilded achievement 21 (your not meant to get it yet)</li>
             <li>more news ticker messages since you love it so much</li>
             <li>buffed the 'decrease building price based on your boosters' perk</li>
+            <li>links in credits now open in new tabs</li>
         </ul>
     </div>
     <div>
