@@ -4,6 +4,7 @@
         <ul>
             <li>buffed 5th upgrade from 5x to 10x</li>
             <li>removed gilded achievement 21 (your not meant to get it yet)</li>
+            <li>more news ticker messages since you love it so much</li>
         </ul>
     </div>
     <div>
