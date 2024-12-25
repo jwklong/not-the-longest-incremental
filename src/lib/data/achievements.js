@@ -98,7 +98,7 @@ export default [
             return data.getUpgrade('bp1').cost()[0].gt(4)
         }
 
-        ach.gildedDescription = "Have all 6 perks at once."
+        /*ach.gildedDescription = "Have all 6 perks at once."*/
         ach.gildedRequirement = function() {
             return data.getUpgrade('bp1').cost()[0].gt(onum(4).pow(6))
         }

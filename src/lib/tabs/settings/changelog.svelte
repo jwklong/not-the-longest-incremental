@@ -3,6 +3,7 @@
         <h3>v0.1.2</h3>
         <ul>
             <li>buffed 5th upgrade from 5x to 10x</li>
+            <li>removed gilded achievement 21 (your not meant to get it yet)</li>
         </ul>
     </div>
     <div>
