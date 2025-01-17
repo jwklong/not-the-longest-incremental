@@ -13,6 +13,7 @@
 
     import Icon from "$lib/assets/buildings/generator.svg";
     import Quarry from "$lib/tabs/quarry.svelte";
+    import Statistics from "$lib/tabs/statistics.svelte";
 
     let tabs = [
         {
@@ -40,6 +41,12 @@
             id: "ach",
             color: ["var(--cobalt-500)"],
             tab: Achievements
+        },
+        {
+            label: "Statistics",
+            id: "stats",
+            color: ["var(--cobalt-100)", "var(--cobalt-900)"],
+            tab: Statistics
         },
         {
             label: "Settings",
