@@ -51,7 +51,9 @@ booster.visible = function() {
     return data.getUpgrade('p3').bought
 }
 booster.onBuy = function() {
-    data.getResource('boosterPoints').amount = data.getResource('boosterPoints').amount.add(this.amount)
+    let boosterPoints = data.getResource('boosterPoints')
+
+    boosterPoints.amount = boosterPoints.amount.add(this.amount)
     data.getLayer('booster').reset()
 }
 

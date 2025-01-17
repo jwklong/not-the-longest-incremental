@@ -51,8 +51,11 @@ maker.cost = [
         base: () => {
             let base = onum(10)
 
-            if (data.getUpgrade('bp3').bought) base = base.div(data.getUpgrade('bp3').effect())
-            if (data.getUpgrade('bp6').bought) base = base.div(data.getUpgrade('bp6').effect())
+            let bp3 = data.getUpgrade('bp3')
+            let bp6 = data.getUpgrade('bp6')
+
+            if (bp3.bought) base = base.div(bp3.effect())
+            if (bp6.bought) base = base.div(bp6.effect())
 
             return base
         },
@@ -79,8 +82,11 @@ generator.cost = [
         base: () => {
             let base = onum(250)
 
-            if (data.getUpgrade('bp3').bought) base = base.div(data.getUpgrade('bp3').effect())
-            if (data.getUpgrade('bp6').bought) base = base.div(data.getUpgrade('bp6').effect())
+            let bp3 = data.getUpgrade('bp3')
+            let bp6 = data.getUpgrade('bp6')
+
+            if (bp3.bought) base = base.div(bp3.effect())
+            if (bp6.bought) base = base.div(bp6.effect())
 
             return base
         },
@@ -109,8 +115,11 @@ producer.cost = [
         base: () => {
             let base = onum(10000)
 
-            if (data.getUpgrade('bp3').bought) base = base.div(data.getUpgrade('bp3').effect())
-            if (data.getUpgrade('bp6').bought) base = base.div(data.getUpgrade('bp6').effect())
+            let bp3 = data.getUpgrade('bp3')
+            let bp6 = data.getUpgrade('bp6')
+
+            if (bp3.bought) base = base.div(bp3.effect())
+            if (bp6.bought) base = base.div(bp6.effect())
 
             return base
         },
@@ -138,9 +147,12 @@ fabricator.cost = [
     new Cost({
         base: () => {
             let base = onum(1e8)
+            
+            let bp3 = data.getUpgrade('bp3')
+            let bp6 = data.getUpgrade('bp6')
 
-            if (data.getUpgrade('bp3').bought) base = base.div(data.getUpgrade('bp3').effect())
-            if (data.getUpgrade('bp6').bought) base = base.div(data.getUpgrade('bp6').effect())
+            if (bp3.bought) base = base.div(bp3.effect())
+            if (bp6.bought) base = base.div(bp6.effect())
 
             return base
         },
