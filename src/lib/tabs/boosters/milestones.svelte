@@ -52,6 +52,12 @@
         <span>Unlock a second row of Perks.</span>
         <span>12 Boosters</span>
     </Milestone>
+    <Milestone requirement={() => {
+        return data.getBuilding('booster').amount.gte(16)
+    }}>
+        <span>The Quarry.</span>
+        <span>16 Boosters</span>
+    </Milestone>
 </div>
 
 <style>

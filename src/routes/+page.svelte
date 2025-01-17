@@ -12,6 +12,7 @@
     import globalUpdater from "$lib/globalUpdater"
 
     import Icon from "$lib/assets/buildings/generator.svg";
+    import Quarry from "$lib/tabs/quarry.svelte";
 
     let tabs = [
         {
@@ -26,6 +27,13 @@
             color: ["var(--green-300)"],
             visible: () => data.getLayer('booster').hasReset,
             tab: Boosters
+        },
+        {
+            label: "Quarry",
+            id: "quarry",
+            color: ["#ccc", "#333"],
+            visible: () => data.getBuilding('booster').amount.gte(16),
+            tab: Quarry
         },
         {
             label: "Achievements",
