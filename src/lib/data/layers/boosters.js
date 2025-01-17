@@ -66,7 +66,7 @@ provider.cost = [
     }), "points"
 ]
 provider.effect = function() {
-    let base = onum(1.3)
+    let base = onum(1.25)
 
     let amount = this.amount
     if (data.getUpgrade("bp5").bought) amount = amount.add(data.getBuilding('booster').amount.div(2))
