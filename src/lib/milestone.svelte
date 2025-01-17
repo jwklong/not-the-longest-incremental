@@ -1,18 +1,16 @@
 <script>
     import onum from "$lib/onum";
     import { onMount } from "svelte";
+    import globalUpdater from "$lib/globalUpdater";
 
     let { requirement = () => false, children } = $props()
 
     let result = $state(requirement())
 
     onMount(() => {
-        function main() {
+        globalUpdater.addUpdate(() => {
             result = requirement()
-
-            requestAnimationFrame(main)
-        }
-        requestAnimationFrame(main)
+        })
     })
 </script>
 

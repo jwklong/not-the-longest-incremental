@@ -9,6 +9,7 @@
     import TabsManager from "$lib/tabs/tabsManager.svelte";
     import { onMount } from "svelte";
     import News from "$lib/news/news.svelte";
+    import globalUpdater from "$lib/globalUpdater"
 
     import Icon from "$lib/assets/buildings/generator.svg";
 
@@ -55,7 +56,7 @@
 
         let oldtime = 0
         function tick(newtime) {
-            data.tick((newtime - oldtime) / 1000)
+            globalUpdater.update((newtime - oldtime) / 1000)
             oldtime = newtime
 
             settings = data.settings

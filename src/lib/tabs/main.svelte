@@ -5,15 +5,14 @@
     import Resource from "$lib/resource/resource.svelte";
     import Upgrade from "$lib/upgrade/upgrade.svelte";
     import { onMount } from "svelte";
+    import globalUpdater from "$lib/globalUpdater";
 
     let maxBtn = $state(false)
 
     onMount(() => {
-        function main() {
+        globalUpdater.addUpdate(() => {
             maxBtn = data.getLayer("booster").hasReset
-            requestAnimationFrame(main)
-        }
-        requestAnimationFrame(main)
+        })
     })
 
     function buyMax() {

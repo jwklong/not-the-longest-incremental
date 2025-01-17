@@ -2,6 +2,7 @@
     import data from "$lib/data/data";
     import onum from "$lib/onum";
     import { onMount } from "svelte";
+    import globalUpdater from "$lib/globalUpdater";
 
     let {
         id = "",
@@ -15,12 +16,10 @@
     let spanConfig = $derived(resource.spanConfig)
 
     onMount(() => {
-        function update() {
+        globalUpdater.addUpdate(() => {
             amount = amountOverride.isNegative() ? resource.amount : amountOverride
             gain = resource.gain()
-            requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
+        })
     });
 </script>
 

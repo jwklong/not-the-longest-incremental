@@ -1,6 +1,7 @@
 <script>
     import Button from "$lib/button.svelte";
     import { onMount } from "svelte";
+    import globalUpdater from "$lib/globalUpdater";
 
     /** @type {{items: {label: string, color: string[], visible: (()=>boolean)?, id: string, tab: *}[]}} */
     let {items = []} = $props();
@@ -14,13 +15,11 @@
         itemsVisible[item.id] = item.visible ? item.visible() : true
     }
     onMount(() => {
-        function main() {
+        globalUpdater.addUpdate(() => {
             for (let item of items) {
                 itemsVisible[item.id] = item.visible ? item.visible() : true
             }
-            requestAnimationFrame(main)
-        }
-        requestAnimationFrame(main)
+        })
     })
 </script>
 

@@ -3,6 +3,7 @@
     import data from "$lib/data/data";
     import Resource from "$lib/resource/resource.svelte";
     import { onMount } from "svelte";
+    import globalUpdater from "$lib/globalUpdater";
 
     let { id, desc } = $props()
 
@@ -14,15 +15,13 @@
     let visible = $state(upgrade.visible())
 
     onMount(() => {
-        function update() {
+        globalUpdater.addUpdate(() => {
             bought = upgrade.bought
             cost = upgrade.cost()
             effect = upgrade.effect()
             canBuy = upgrade.canBuy()
             visible = upgrade.visible()
-            requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
+        })
     });
 </script>
 

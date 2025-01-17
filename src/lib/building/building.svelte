@@ -1,6 +1,7 @@
 <script>
     import Button from "$lib/button.svelte";
     import data from "$lib/data/data";
+    import globalUpdater from "$lib/globalUpdater";
     import Resource from "$lib/resource/resource.svelte";
     import { onMount } from "svelte";
 
@@ -16,14 +17,12 @@
     let visible = $state(building.visible())
 
     onMount(() => {
-        function update() {
+        globalUpdater.addUpdate(() => {
             amount = building.amount
             effect = building.effect()
             canBuy = building.canBuy()
             visible = building.visible()
-            requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
+        })
     });
 </script>
 

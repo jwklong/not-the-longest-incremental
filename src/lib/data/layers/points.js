@@ -25,13 +25,20 @@ Points.gain = function() {
 }
 
 function globalPointsBoost(num) {
-    if (data.getUpgrade("p1").bought) num = num.mul(data.getUpgrade("p1").effect())
-    if (data.getUpgrade("p2").bought) num = num.mul(data.getUpgrade("p2").effect())
-    num = num.mul(data.getBuilding('booster').effect()[0])
-    if (data.getUpgrade("bp1").bought) num = num.mul(data.getUpgrade("bp1").effect())
-    if (data.getBuilding('booster').amount.gte(3)) num = num.mul(3)
-    num = num.mul(data.getBuilding('provider').effect()[0])
-    if (data.getUpgrade("bp4").bought) num = num.mul(data.getUpgrade("bp4").effect())
+    const p1 = data.getUpgrade("p1")
+    const p2 = data.getUpgrade("p2")
+    const booster = data.getBuilding('booster')
+    const bp1 = data.getUpgrade("bp1")
+    const provider = data.getBuilding('provider')
+    const bp4 = data.getUpgrade("bp4")
+
+    if (p1.bought) num = num.mul(p1.effect())
+    if (p2.bought) num = num.mul(p2.effect())
+    num = num.mul(booster.effect()[0])
+    if (bp1.bought) num = num.mul(bp1.effect())
+    if (booster.amount.gte(3)) num = num.mul(3)
+    num = num.mul(provider.effect()[0])
+    if (bp4.bought) num = num.mul(bp4.effect())
     return num
 }
 

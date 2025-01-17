@@ -1,6 +1,7 @@
 <script>
     import news from "$lib/news/news.json"
     import { onMount } from "svelte";
+    import globalUpdater from "$lib/globalUpdater";
 
     /** @type {HTMLDivElement} */
     let rootEl
@@ -16,7 +17,7 @@
             textEl.innerText = news[Math.floor(Math.random() * news.length)]
         }
 
-        function main() {
+        globalUpdater.addUpdate(() => {
             let t = (Date.now() - startTime) / 1000
 
             let rootWidth = rootEl.getBoundingClientRect().width
@@ -28,11 +29,7 @@
             if (distanceTravel <= t * distanceMultiplier) {
                 change()
             }
-
-            requestAnimationFrame(main)
-        }
-
-        main()
+        })
     })
 </script>
 

@@ -2,17 +2,16 @@
     import Achievement from "$lib/achievement/achievement.svelte";
     import data from "$lib/data/data";
     import { onMount } from "svelte";
+    import globalUpdater from "$lib/globalUpdater";
 
     let achievements = $state(data.achievements)
     let completed = $derived(achievements.filter(v => v.unlocked).length)
     let gilded = $derived(achievements.filter(v => v.gilded).length)
 
     onMount(() => {
-        function main() {
+        globalUpdater.addUpdate(() => {
             achievements = data.achievements
-            requestAnimationFrame(main)
-        }
-        requestAnimationFrame(main)
+        })
     })
 </script>
 

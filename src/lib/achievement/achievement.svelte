@@ -1,6 +1,7 @@
 <script>
     import data from "$lib/data/data";
     import { onMount } from "svelte";
+    import globalUpdater from "$lib/globalUpdater";
 
     let {x = 0, y = 0} = $props()
 
@@ -9,12 +10,10 @@
     let gilded = $state(achievement ? achievement.gilded : false)
 
     onMount(() => {
-        function update() {
+        globalUpdater.addUpdate(() => {
             unlocked = achievement ? achievement.unlocked : false
             gilded = achievement ? achievement.gilded : false
-            requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
+        })
     });
 </script>
 
