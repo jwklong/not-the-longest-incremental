@@ -42,7 +42,7 @@ booster.cost = [
 ]
 booster.effect = function() {
     let base = onum(2)
-    if (data.getBuilding('booster').amount.gte(8)) base = onum(2.2)
+    if (data.getBuilding('booster').amount.gte(8)) base = onum(2.1)
     base = base.pow(this.amount)
     
     return [base, "points"]
@@ -66,7 +66,7 @@ provider.cost = [
     }), "points"
 ]
 provider.effect = function() {
-    let base = onum(1.2)
+    let base = onum(1.3)
 
     let amount = this.amount
     if (data.getUpgrade("bp5").bought) amount = amount.add(data.getBuilding('booster').amount.div(2))
@@ -108,9 +108,9 @@ bp3.cost = perkCost
 bp3.effect = function() {
     let base = data.getBuilding('booster').amount
     
-    base = base.pow(0.25)
+    base = base.div(10)
+    base = base.add(1)
     
-    base = base.max(1)
     return base
 }
 
