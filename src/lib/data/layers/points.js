@@ -16,17 +16,15 @@ Points.amount = onum(10)
 Points.gain = function() {
     let base = onum()
 
-    base = base.add(data.getBuilding("maker").effect()[0])
-    base = base.add(data.getBuilding("generator").effect()[0])
-    base = base.add(data.getBuilding("producer").effect()[0])
-    base = base.add(data.getBuilding("fabricator").effect()[0])
+    base = base.add(maker.effect()[0])
+    base = base.add(generator.effect()[0])
+    base = base.add(producer.effect()[0])
+    base = base.add(fabricator.effect()[0])
 
     return base
 }
 
 function globalPointsBoost(num) {
-    const p1 = data.getUpgrade("p1")
-    const p2 = data.getUpgrade("p2")
     const booster = data.getBuilding('booster')
     const bp1 = data.getUpgrade("bp1")
     const provider = data.getBuilding('provider')
@@ -67,8 +65,8 @@ maker.effect = function() {
     base = base.mul(this.amount)
 
     base = globalPointsBoost(base)
-    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(data.getBuilding('generator').amount))
-    if (data.getUpgrade('p5').bought) base = base.mul(10)
+    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(generator.amount))
+    if (p5.bought) base = base.mul(10)
     
     return [base, "points"]
 }
@@ -98,12 +96,12 @@ generator.effect = function() {
     base = base.mul(this.amount)
 
     base = globalPointsBoost(base)
-    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(data.getBuilding('producer').amount))
+    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(producer.amount))
 
     return [base, "points"]
 }
 generator.visible = function() {
-    return data.getBuilding('maker').amount.gte(1) || data.getLayer('booster').hasReset
+    return maker.amount.gte(1) || data.getLayer('booster').hasReset
 }
 
 import ProducerImage from "$lib/assets/buildings/producer.svg";
@@ -131,12 +129,12 @@ producer.effect = function() {
     base = base.mul(this.amount)
 
     base = globalPointsBoost(base)
-    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(data.getBuilding('fabricator').amount))
+    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(fabricator.amount))
 
     return [base, "points"]
 }
 producer.visible = function() {
-    return data.getBuilding('generator').amount.gte(5) || data.getLayer('booster').hasReset
+    return generator.amount.gte(5) || data.getLayer('booster').hasReset
 }
 
 import FabricatorImage from "$lib/assets/buildings/fabricator.svg";
@@ -164,7 +162,7 @@ fabricator.effect = function() {
     base = base.mul(this.amount)
 
     base = globalPointsBoost(base)
-    if (data.getUpgrade('p6').bought) base = base.mul(data.getUpgrade('p6').effect())
+    if (p6.bought) base = base.mul(p6.effect())
     
     return [base, "points"]
 }
@@ -188,7 +186,7 @@ p1.effect = function() {
     return base
 }
 p1.visible = function() {
-    return data.getBuilding('generator').amount.gte(1) || data.getLayer('booster').hasReset
+    return generator.amount.gte(1) || data.getLayer('booster').hasReset
 }
 
 let p2 = new Upgrade("p2")
@@ -200,7 +198,7 @@ p2.cost = function() {
 p2.effect = function() {
     let base = data.getResource("points").amount
     base = base.add(1)
-    if (data.getUpgrade('p4').bought) {
+    if (p4.bought) {
         base = base.root(8)
         base = base.mul(1.5)
     } else {
@@ -211,7 +209,7 @@ p2.effect = function() {
     return base
 }
 p2.visible = function() {
-    return data.getUpgrade('p1').visible()
+    return p1.visible()
 }
 
 let p3 = new Upgrade("p3")
@@ -221,7 +219,7 @@ p3.cost = function() {
     return [base, "points"]
 }
 p3.visible = function() {
-    return data.getUpgrade('p1').bought || data.getUpgrade('p2').bought
+    return p1.bought || p2.bought
 }
 
 let p4 = new Upgrade("p4")
@@ -241,7 +239,7 @@ p5.cost = function() {
     return [base, "points"]
 }
 p5.visible = function() {
-    return data.getUpgrade('p4').bought
+    return p4.bought
 }
 
 let p6 = new Upgrade("p6")
@@ -259,7 +257,7 @@ p6.effect = function() {
     return base
 }
 p6.visible = function() {
-    return data.getUpgrade('p5').bought && data.getBuilding('fabricator').visible()
+    return p5.bought && fabricator.visible()
 }
 
 export default [
