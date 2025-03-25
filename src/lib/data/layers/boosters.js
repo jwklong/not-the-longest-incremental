@@ -91,7 +91,7 @@ function perkCost() {
 let bp1 = new Upgrade("bp1")
 bp1.cost = perkCost
 bp1.effect = function() {
-    let base = onum(booster.timeSpent)
+    let base = onum(boosterLayer.timeSpent)
     
     base = base.add(1)
     base = base.logBase(20)
