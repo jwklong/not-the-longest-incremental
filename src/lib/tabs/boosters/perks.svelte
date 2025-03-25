@@ -6,14 +6,14 @@
 
     function respec() {
         if (confirm("Are you sure you want to respec? This will perform a booster reset with no reward.")) {
-            data.getLayer("booster").reset(true)
+            data.layers['booster'].reset(true)
             
-            data.getUpgrade("bp1").respec()
-            data.getUpgrade("bp2").respec()
-            data.getUpgrade("bp3").respec()
-            data.getUpgrade("bp4").respec()
-            data.getUpgrade("bp5").respec()
-            data.getUpgrade("bp6").respec()
+            data.upgrades['bp1'].respec()
+            data.upgrades['bp2'].respec()
+            data.upgrades['bp3'].respec()
+            data.upgrades['bp4'].respec()
+            data.upgrades['bp5'].respec()
+            data.upgrades['bp6'].respec()
         }
     }
 </script>

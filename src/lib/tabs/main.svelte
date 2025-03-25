@@ -11,25 +11,25 @@
 
     onMount(() => {
         globalUpdater.addUpdate(() => {
-            maxBtn = data.getLayer("booster").hasReset
+            maxBtn = data.layers['booster'].hasReset
         })
     })
 
     function buyMax() {
-        if (data.getBuilding("booster").amount.gte(9)) {
-            data.getUpgrade("p1").buy()
-            data.getUpgrade("p2").buy()
-            data.getUpgrade("p3").buy()
-            data.getUpgrade("p4").buy()
-            data.getUpgrade("p5").buy()
-            data.getUpgrade("p6").buy()
+        if (data.buildings['booster'].amount.gte(9)) {
+            data.upgrades['p1'].buy()
+            data.upgrades['p2'].buy()
+            data.upgrades['p3'].buy()
+            data.upgrades['p4'].buy()
+            data.upgrades['p5'].buy()
+            data.upgrades['p6'].buy()
         }
 
-        data.getBuilding("provider").maxBuy()
-        data.getBuilding("fabricator").maxBuy()
-        data.getBuilding("producer").maxBuy()
-        data.getBuilding("generator").maxBuy()
-        data.getBuilding("maker").maxBuy()
+        data.buildings['provider'].maxBuy()
+        data.buildings['fabricator'].maxBuy()
+        data.buildings['producer'].maxBuy()
+        data.buildings['generator'].maxBuy()
+        data.buildings['maker'].maxBuy()
     }
 </script>
 <div class="main">

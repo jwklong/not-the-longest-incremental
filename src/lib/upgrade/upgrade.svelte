@@ -7,7 +7,7 @@
 
     let { id, desc } = $props()
 
-    let upgrade = $state(data.getUpgrade(id))
+    let upgrade = $state(data.upgrades[id])
     let bought = $state(upgrade.bought)
     let cost = $state(upgrade.cost())
     let effect = $state(upgrade.effect())

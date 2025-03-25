@@ -13,49 +13,17 @@ class Data {
     /** @type {number} */
     timeSpent = 0
 
-    /** @type {Layer[]} */
-    layers = []
+    /** @type {Object<string, Layer>} */
+    layers = {}
 
-    /**
-     * @param {string} id
-     * @returns {Layer?}
-     */
-    getLayer(id) {
-        return this.layers.find(v => v.id == id)
-    }
+    /** @type {Object<string, Resource>} */
+    resources = {}
 
-    /** @type {Resource[]} */
-    resources = []
+    /** @type {Object<string, Building>} */
+    buildings = {}
 
-    /**
-     * @param {string} id
-     * @returns {Resource?}
-     */
-    getResource(id) {
-        return this.resources.find(v => v.id == id)
-    }
-
-    /** @type {Building[]} */
-    buildings = []
-
-    /**
-     * @param {string} id
-     * @returns {Building?}
-     */
-    getBuilding(id) {
-        return this.buildings.find(v => v.id == id)
-    }
-
-    /** @type {Upgrade[]} */
-    upgrades = []
-
-    /**
-     * @param {string} id
-     * @returns {Upgrade?}
-     */
-    getUpgrade(id) {
-        return this.upgrades.find(v => v.id == id)
-    }
+    /** @type {Object<string, Upgrade>} */
+    upgrades = {}
 
     /** @type {Achievement[]} */
     achievements = achievements
@@ -67,11 +35,11 @@ class Data {
     tick(dt) {
         this.timeSpent += dt
 
-        this.layers.forEach(v => {
+        Object.values(this.layers).forEach(v => {
             v.timeSpent = v.timeSpent + dt
         })
 
-        this.resources.forEach(v => {
+        Object.values(this.resources).forEach(v => {
             v.amount = v.amount.add(v.gain().mul(dt))
         })
 
@@ -97,26 +65,26 @@ class Data {
             timeSpent: this.timeSpent
         }
 
-        for (let layer of this.layers) {
+        for (let layer of Object.values(this.layers)) {
             object.layers[layer.id] = {
                 timeSpent: layer.timeSpent,
                 resets: layer.resets.toJSON()
             }
         }
 
-        for (let resource of this.resources) {
+        for (let resource of Object.values(this.resources)) {
             object.resources[resource.id] = {
                 amount: resource.amount.toJSON()
             }
         }
 
-        for (let building of this.buildings) {
+        for (let building of Object.values(this.buildings)) {
             object.buildings[building.id] = {
                 amount: building.amount.toJSON()
             }
         }
 
-        for (let upgrade of this.upgrades) {
+        for (let upgrade of Object.values(this.upgrades)) {
             object.upgrades[upgrade.id] = {
                 bought: upgrade.bought
             }
@@ -143,7 +111,7 @@ class Data {
 
         for (let layerID of Object.keys(object.layers ?? {})) {
             let loadedLayer = object.layers[layerID]
-            let layer = this.getLayer(layerID)
+            let layer = this.layers[layerID]
             if (layer) {
                 layer.timeSpent = loadedLayer.timeSpent ?? 0
                 layer.resets = onum(loadedLayer.resets ?? 0)
@@ -152,7 +120,7 @@ class Data {
 
         for (let resourceID of Object.keys(object.resources ?? {})) {
             let loadedResource = object.resources[resourceID]
-            let resource = this.getResource(resourceID)
+            let resource = this.resources[resourceID]
             if (resource) {
                 resource.amount = onum(loadedResource.amount ?? 0)
             }
@@ -160,7 +128,7 @@ class Data {
 
         for (let buildingID of Object.keys(object.buildings ?? {})) {
             let loadedBuilding = object.buildings[buildingID]
-            let building = this.getBuilding(buildingID)
+            let building = this.buildings[buildingID]
             if (building) {
                 building.amount = onum(loadedBuilding.amount ?? 0)
             }
@@ -168,7 +136,7 @@ class Data {
 
         for (let upgradeID of Object.keys(object.upgrades ?? {})) {
             let loadedUpgrade = object.upgrades[upgradeID]
-            let upgrade = this.getUpgrade(upgradeID)
+            let upgrade = this.upgrades[upgradeID]
             if (upgrade) {
                 upgrade.bought = Boolean(loadedUpgrade.bought)
             }
@@ -190,13 +158,13 @@ let data = new Data
 function loadLayer(layer) {
     layer.forEach(v => {
         if (v instanceof Layer) {
-            data.layers.push(v)
+            data.layers[v.id] = v
         } else if (v instanceof Resource) {
-            data.resources.push(v)
+            data.resources[v.id] = v
         } else if (v instanceof Building) {
-            data.buildings.push(v)
+            data.buildings[v.id] = v
         } else if (v instanceof Upgrade) {
-            data.upgrades.push(v)
+            data.upgrades[v.id] = v
         } else {
             console.warn("Unknown layer type", v)
         }

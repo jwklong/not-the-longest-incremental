@@ -26,14 +26,14 @@
             label: "Boosters",
             id: "boosters",
             color: ["var(--green-300)"],
-            visible: () => data.getLayer('booster').hasReset,
+            visible: () => data.layers['booster'].hasReset,
             tab: Boosters
         },
         {
             label: "Quarry",
             id: "quarry",
             color: ["#ccc", "#333"],
-            visible: () => data.getBuilding('booster').amount.gte(16),
+            visible: () => data.buildings['booster'].amount.gte(16),
             tab: Quarry
         },
         {

@@ -10,7 +10,7 @@
         showGain = false
     } = $props()
 
-    let resource = $state(data.getResource(id))
+    let resource = $state(data.resources[id])
     let amount = $state(amountOverride.isNegative() ? resource.amount : amountOverride)
     let gain = $state(resource.gain())
     let spanConfig = $derived(resource.spanConfig)

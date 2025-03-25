@@ -25,10 +25,10 @@ Points.gain = function() {
 }
 
 function globalPointsBoost(num) {
-    const booster = data.getBuilding('booster')
-    const bp1 = data.getUpgrade("bp1")
-    const provider = data.getBuilding('provider')
-    const bp4 = data.getUpgrade("bp4")
+    const booster = data.buildings['booster']
+    const bp1 = data.upgrades['bp1']
+    const provider = data.buildings['provider']
+    const bp4 = data.upgrades['bp4']
 
     if (p1.bought) num = num.mul(p1.effect())
     if (p2.bought) num = num.mul(p2.effect())
@@ -49,8 +49,8 @@ maker.cost = [
         base: () => {
             let base = onum(10)
 
-            let bp3 = data.getUpgrade('bp3')
-            let bp6 = data.getUpgrade('bp6')
+            let bp3 = data.upgrades['bp3']
+            let bp6 = data.upgrades['bp6']
 
             if (bp3.bought) base = base.div(bp3.effect())
             if (bp6.bought) base = base.div(bp6.effect())
@@ -65,7 +65,7 @@ maker.effect = function() {
     base = base.mul(this.amount)
 
     base = globalPointsBoost(base)
-    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(generator.amount))
+    if (data.upgrades['bp2'].bought) base = base.mul(onum(1.1).pow(generator.amount))
     if (p5.bought) base = base.mul(10)
     
     return [base, "points"]
@@ -80,8 +80,8 @@ generator.cost = [
         base: () => {
             let base = onum(250)
 
-            let bp3 = data.getUpgrade('bp3')
-            let bp6 = data.getUpgrade('bp6')
+            let bp3 = data.upgrades['bp3']
+            let bp6 = data.upgrades['bp6']
 
             if (bp3.bought) base = base.div(bp3.effect())
             if (bp6.bought) base = base.div(bp6.effect())
@@ -96,12 +96,12 @@ generator.effect = function() {
     base = base.mul(this.amount)
 
     base = globalPointsBoost(base)
-    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(producer.amount))
+    if (data.upgrades['bp2'].bought) base = base.mul(onum(1.1).pow(producer.amount))
 
     return [base, "points"]
 }
 generator.visible = function() {
-    return maker.amount.gte(1) || data.getLayer('booster').hasReset
+    return maker.amount.gte(1) || data.layers['booster'].hasReset
 }
 
 import ProducerImage from "$lib/assets/buildings/producer.svg";
@@ -113,8 +113,8 @@ producer.cost = [
         base: () => {
             let base = onum(10000)
 
-            let bp3 = data.getUpgrade('bp3')
-            let bp6 = data.getUpgrade('bp6')
+            let bp3 = data.upgrades['bp3']
+            let bp6 = data.upgrades['bp6']
 
             if (bp3.bought) base = base.div(bp3.effect())
             if (bp6.bought) base = base.div(bp6.effect())
@@ -129,12 +129,12 @@ producer.effect = function() {
     base = base.mul(this.amount)
 
     base = globalPointsBoost(base)
-    if (data.getUpgrade('bp2').bought) base = base.mul(onum(1.1).pow(fabricator.amount))
+    if (data.upgrades['bp2'].bought) base = base.mul(onum(1.1).pow(fabricator.amount))
 
     return [base, "points"]
 }
 producer.visible = function() {
-    return generator.amount.gte(5) || data.getLayer('booster').hasReset
+    return generator.amount.gte(5) || data.layers['booster'].hasReset
 }
 
 import FabricatorImage from "$lib/assets/buildings/fabricator.svg";
@@ -146,8 +146,8 @@ fabricator.cost = [
         base: () => {
             let base = onum(1e8)
             
-            let bp3 = data.getUpgrade('bp3')
-            let bp6 = data.getUpgrade('bp6')
+            let bp3 = data.upgrades['bp3']
+            let bp6 = data.upgrades['bp6']
 
             if (bp3.bought) base = base.div(bp3.effect())
             if (bp6.bought) base = base.div(bp6.effect())
@@ -167,7 +167,7 @@ fabricator.effect = function() {
     return [base, "points"]
 }
 fabricator.visible = function() {
-    return data.getBuilding('booster').amount.gte(5)
+    return data.buildings['booster'].amount.gte(5)
 }
 
 let p1 = new Upgrade("p1")
@@ -177,16 +177,16 @@ p1.cost = function() {
     return [base, "points"]
 }
 p1.effect = function() {
-    let base = data.buildings.reduce((a, b) => a.add(b.amount), onum())
+    let base = Object.values(data.buildings).reduce((a, b) => a.add(b.amount), onum())
     base = base.add(1)
     base = base.logBase(10)
-    if (data.getBuilding('booster').amount.gte(4)) base = base.pow(1.3)
+    if (data.buildings['booster'].amount.gte(4)) base = base.pow(1.3)
     base = base.add(1)
     
     return base
 }
 p1.visible = function() {
-    return generator.amount.gte(1) || data.getLayer('booster').hasReset
+    return generator.amount.gte(1) || data.layers['booster'].hasReset
 }
 
 let p2 = new Upgrade("p2")
@@ -196,7 +196,7 @@ p2.cost = function() {
     return [base, "points"]
 }
 p2.effect = function() {
-    let base = data.getResource("points").amount
+    let base = data.resources['points'].amount
     base = base.add(1)
     if (p4.bought) {
         base = base.root(8)
@@ -229,7 +229,7 @@ p4.cost = function() {
     return [base, "points"]
 }
 p4.visible = function() {
-    return data.getLayer('booster').hasReset
+    return data.layers['booster'].hasReset
 }
 
 let p5 = new Upgrade("p5")
@@ -249,7 +249,7 @@ p6.cost = function() {
     return [base, "points"]
 }
 p6.effect = function() {
-    let base = data.getBuilding('booster').amount
+    let base = data.buildings['booster'].amount
 
     base = base.div(2)
     base = base.add(1)

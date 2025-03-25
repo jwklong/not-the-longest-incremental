@@ -7,7 +7,7 @@
 
     let { id, generation } = $props()
 
-    let building = $state(data.getBuilding(id))
+    let building = $state(data.buildings[id])
     let image = $derived(building.image)
     let name = $derived(building.name)
     let amount = $state(building.amount)

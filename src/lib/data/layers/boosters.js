@@ -9,19 +9,19 @@ import data from "$lib/data/data";
 let boosterLayer = new Layer("booster")
 boosterLayer.name = "Booster"
 boosterLayer.resetFunction = function() {
-    data.getBuilding("maker").amount = onum(0)
-    data.getBuilding("generator").amount = onum(0)
-    data.getBuilding("producer").amount = onum(0)
-    data.getBuilding("fabricator").amount = onum(0)
-    data.getBuilding("provider").amount = onum(0)
+    data.buildings['maker'].amount = onum(0)
+    data.buildings['generator'].amount = onum(0)
+    data.buildings['producer'].amount = onum(0)
+    data.buildings['fabricator'].amount = onum(0)
+    data.buildings['provider'].amount = onum(0)
 
-    data.getUpgrade("p1").bought = false
-    data.getUpgrade("p2").bought = false
-    data.getUpgrade("p4").bought = false
-    data.getUpgrade("p5").bought = false
-    data.getUpgrade("p6").bought = false
+    data.upgrades['p1'].bought = false
+    data.upgrades['p2'].bought = false
+    data.upgrades['p4'].bought = false
+    data.upgrades['p5'].bought = false
+    data.upgrades['p6'].bought = false
     
-    data.getResource("points").amount = onum(10)
+    data.resources['points'].amount = onum(10)
 }
 
 let boosterPoints = new Resource("boosterPoints");
@@ -48,11 +48,11 @@ booster.effect = function() {
     return [base, "points"]
 }
 booster.visible = function() {
-    return data.getUpgrade('p3').bought
+    return data.upgrades['p3'].bought
 }
 booster.onBuy = function() {
     boosterPoints.amount = boosterPoints.amount.add(this.amount)
-    data.getLayer('booster').reset()
+    data.layers['booster'].reset()
 }
 
 import ProviderImage from "$lib/assets/buildings/provider.svg";
