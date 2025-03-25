@@ -57,12 +57,14 @@
     }
 
     .title {
+        position: relative;
         color: #fff;
         font-weight: 500;
         text-align: center;
-        width: 100%;
-        margin-top: 8px;
+        width: calc(100% - 8px);
+        margin: 8px 4px;
         display: block;
+        z-index: 1;
     }
 
     .number {

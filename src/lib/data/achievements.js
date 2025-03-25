@@ -88,6 +88,7 @@ export default [
 
         return ach
     })(),
+
     (() => {
         let ach = new Achievement
         ach.name = "Tough choice"
@@ -98,7 +99,7 @@ export default [
             return data.upgrades['bp1'].cost()[0].gt(4)
         }
 
-        /*ach.gildedDescription = "Have all 6 perks at once."*/
+        ach.gildedDescription = "Have all 6 perks at once."
         ach.gildedRequirement = function() {
             return data.upgrades['bp1'].cost()[0].gt(onum(4).pow(6))
         }
@@ -125,6 +126,43 @@ export default [
         ach.description = "Buy a Provider."
         ach.requirement = function() {
             return data.buildings['provider'].amount.gte(1)
+        }
+
+        return ach
+    })(),
+    (() => {
+        let ach = new Achievement
+        ach.name = "Reverse counting"
+        ach.location = [2, 4]
+
+        ach.description = "Get 5.43e21 points."
+        ach.requirement = function() {
+            return data.resources['points'].amount.gte(5.43e21)
+        }
+
+        return ach
+    })(),
+    (() => {
+        let ach = new Achievement
+        ach.name = "Fabricatoring"
+        ach.location = [2, 5]
+
+        ach.description = "Buy 50 Fabricators."
+        ach.requirement = function() {
+            return data.buildings["fabricator"].amount.gte(50)
+        }
+
+        return ach
+    })(),
+
+    (() => {
+        let ach = new Achievement
+        ach.name = "NTLI 2"
+        ach.location = [3, 1]
+
+        ach.description = "Enter the quarry."
+        ach.requirement = function() {
+            return data.buildings['booster'].amount.gte(16)
         }
 
         return ach
