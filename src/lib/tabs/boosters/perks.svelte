@@ -46,7 +46,8 @@
         </Upgrade>
         <Upgrade id="bp5">
             {#snippet desc(effect)}
-            Every Booster adds half a Provider effect.
+            Every Booster adds half a Provider.<br>
+            Effect: +{effect.toStringWhole(5, 3, 3)}
             {/snippet}
         </Upgrade>
         <Upgrade id="bp6">

@@ -131,6 +131,13 @@ bp4.visible = function() {
 
 let bp5 = new Upgrade("bp5")
 bp5.cost = perkCost
+bp5.effect = function() {
+    let base = booster.amount
+
+    base = base.div(2)
+
+    return base
+}
 bp5.visible = function() {
     return booster.amount.gte(12)
 }
