@@ -17,8 +17,13 @@
             textEl.innerText = news[Math.floor(Math.random() * news.length)]
         }
 
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
             let t = (Date.now() - startTime) / 1000
+
+            if (!rootEl) {
+                remove()
+                return
+            }
 
             let rootWidth = rootEl.getBoundingClientRect().width
             let textWidth = textEl.getBoundingClientRect().width

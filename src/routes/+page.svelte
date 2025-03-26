@@ -9,7 +9,7 @@
     import TabsManager from "$lib/tabs/tabsManager.svelte";
     import { onMount } from "svelte";
     import News from "$lib/news/news.svelte";
-    import globalUpdater from "$lib/globalUpdater"
+    import globalUpdater from "$lib/globalUpdater";
 
     import Icon from "$lib/assets/buildings/generator.svg";
     import Quarry from "$lib/tabs/quarry.svelte";

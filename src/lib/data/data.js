@@ -2,6 +2,7 @@ import Building from "$lib/building/building";
 import Layer from "$lib/layer/layer";
 import Resource from "$lib/resource/resource";
 import Upgrade from "$lib/upgrade/upgrade";
+import Quarry from "$lib/quarry/quarry";
 import Achievement from "$lib/achievement/achievement";
 
 import onum from "$lib/onum";
@@ -10,7 +11,7 @@ import achievements from "./achievements";
 
 import Points from "./layers/points";
 import Boosters from "./layers/boosters";
-import Quarry from "./layers/quarry";
+import QuarryL from "./layers/quarry";
 
 class Data {
     /** @type {number} */
@@ -27,6 +28,9 @@ class Data {
 
     /** @type {Object<string, Upgrade>} */
     upgrades = {}
+
+    /** @type {Object<string, Quarry>} */
+    quarrys = {}
 
     /** @type {Achievement[]} */
     achievements = achievements
@@ -47,10 +51,10 @@ class Data {
         })
 
         this.achievements.forEach(v => {
-            if (v.requirement()) {
+            if (!v.unlocked && v.requirement()) {
                 v.unlocked = true
             }
-            if (v.gildedRequirement() && v.unlocked) {
+            if (!v.gilded && v.gildedRequirement() && v.unlocked) {
                 v.gilded = true
             }
         })
@@ -63,6 +67,7 @@ class Data {
             buildings: {},
             upgrades: {},
             achievements: {},
+            quarrys: {},
 
             settings: this.settings,
             timeSpent: this.timeSpent
@@ -168,6 +173,8 @@ function loadLayer(layer) {
             data.buildings[v.id] = v
         } else if (v instanceof Upgrade) {
             data.upgrades[v.id] = v
+        } else if (v instanceof Quarry) {
+            data.quarrys[v.id] = v
         } else {
             console.warn("Unknown layer type", v)
         }
@@ -176,6 +183,6 @@ function loadLayer(layer) {
 
 loadLayer(Points)
 loadLayer(Boosters)
-loadLayer(Quarry)
+loadLayer(QuarryL)
 
 export default data

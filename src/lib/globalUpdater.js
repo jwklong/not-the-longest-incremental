@@ -12,8 +12,9 @@ class GlobalUpdater {
     }
 
     update(dt) {
-        for (let upd of this.updates) {
-            upd(dt)
+        for (let i in this.updates) {
+            let upd = this.updates[i]
+            upd(dt, () => this.updates.splice(i, 1))
         }
     }
 }
