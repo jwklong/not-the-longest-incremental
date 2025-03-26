@@ -14,7 +14,7 @@
         }, {
             label: "Inventory",
             id: "inventory",
-            color: ["var(--green-900)", "var(--green-400)"],
+            color: ["var(--green-900)", "var(--green-200)"],
             tab: Inventory
         }
     ]
