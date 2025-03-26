@@ -14,6 +14,7 @@ export default class Resource {
     /** @type {string} */
     name = "Unknown"
 
+
     /** @type {import("$lib/onum").onumType} */
     amount = onum()
 
@@ -23,7 +24,9 @@ export default class Resource {
         /** @type {string} */
         symbol: "?",
         /** @type {string?} */
-        symbolClass: null
+        symbolClass: null,
+        /** @type {boolean} */
+        onLeft: false
     }
 
     /** @returns {import("$lib/onum").onumType} */

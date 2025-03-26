@@ -1,13 +1,16 @@
-import Building from "$lib/building/building"
-import Layer from "$lib/layer/layer"
-import Resource from "$lib/resource/resource"
-import Upgrade from "$lib/upgrade/upgrade"
+import Building from "$lib/building/building";
+import Layer from "$lib/layer/layer";
+import Resource from "$lib/resource/resource";
+import Upgrade from "$lib/upgrade/upgrade";
+import Achievement from "$lib/achievement/achievement";
+
 import onum from "$lib/onum";
 
-import Points from "./layers/points"
-import Boosters from "./layers/boosters";
 import achievements from "./achievements";
-import Achievement from "$lib/achievement/achievement";
+
+import Points from "./layers/points";
+import Boosters from "./layers/boosters";
+import Quarry from "./layers/quarry";
 
 class Data {
     /** @type {number} */
@@ -173,5 +176,6 @@ function loadLayer(layer) {
 
 loadLayer(Points)
 loadLayer(Boosters)
+loadLayer(Quarry)
 
 export default data

@@ -5,15 +5,15 @@ import Resource from "$lib/resource/resource";
 import Upgrade from "$lib/upgrade/upgrade";
 import Cost from "$lib/cost";
 
-let Points = new Resource("points")
-Points.name = "Points"
+let points = new Resource("points")
+points.name = "Points"
 
-Points.spanConfig.symbol = "p"
-Points.spanConfig.symbolClass = "symbolPoints"
+points.spanConfig.symbol = "p"
+points.spanConfig.symbolClass = "symbolPoints"
 
-Points.amount = onum(10)
+points.amount = onum(10)
 
-Points.gain = function() {
+points.gain = function() {
     let base = onum()
 
     base = base.add(maker.effect()[0])
@@ -261,7 +261,7 @@ p6.visible = function() {
 }
 
 export default [
-    Points,
+    points,
 
     maker,
     generator,
