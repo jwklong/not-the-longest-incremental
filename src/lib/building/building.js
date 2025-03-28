@@ -1,6 +1,7 @@
 import Cost from "$lib/cost"
 import data from "$lib/data/data"
 import onum from "$lib/onum"
+import UnknownImage from "$lib/assets/buildings/unknown.svg"
 
 export default class Building {
     /**
@@ -17,7 +18,7 @@ export default class Building {
     name = "Unknown"
 
     /** @type {string} */
-    image = ""
+    image = UnknownImage
 
     /** @type {import("$lib/onum").onumType} */
     amount = onum()
