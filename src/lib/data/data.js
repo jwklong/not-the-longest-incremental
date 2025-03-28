@@ -50,6 +50,10 @@ class Data {
             v.amount = v.amount.add(v.gain().mul(dt))
         })
 
+        Object.values(this.quarrys).forEach(v => {
+            v.tick(dt)
+        })
+
         this.achievements.forEach(v => {
             if (!v.unlocked && v.requirement()) {
                 v.unlocked = true
@@ -175,6 +179,8 @@ function loadLayer(layer) {
             data.upgrades[v.id] = v
         } else if (v instanceof Quarry) {
             data.quarrys[v.id] = v
+
+            Object.values(data.quarrys[v.id].inventory).forEach(w => data.resources[w.id] = w)
         } else {
             console.warn("Unknown layer type", v)
         }

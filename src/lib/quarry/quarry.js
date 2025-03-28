@@ -70,6 +70,13 @@ export default class Quarry {
         this.setCurrentOre(this.currentLayer.getRandomOreId())
         return this.currentLayer
     }
+
+    tick(dt) {
+        if (this.currentOre.isDestroyed()) {
+            this.inventory[this.currentOre.id].amount = this.inventory[this.currentOre.id].amount.add(1)
+            this.setCurrentOre(this.currentLayer.getRandomOreId())
+        }
+    }
 }
 
 class QuarryOre {
