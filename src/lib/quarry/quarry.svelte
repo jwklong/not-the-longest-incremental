@@ -4,6 +4,7 @@
     import { onMount } from "svelte";
     import globalUpdater from "$lib/globalUpdater";
     import Resource from "$lib/resource/resource.svelte";
+    import Button from "$lib/button.svelte";
 
     let {
         id = ""
@@ -14,6 +15,7 @@
     let health = $state(onum())
     let maxHealth = $state(onum())
     let value = $state(null)
+    let clickDamage = $state(quarry.clickDamage())
 
     onMount(() => {
         globalUpdater.addUpdate(() => {
@@ -21,8 +23,13 @@
             health = currentOre ? currentOre.health : onum()
             maxHealth = currentOre ? currentOre.maxHealth : onum()
             value = currentOre ? currentOre.value() : null
+            clickDamage = quarry.clickDamage()
         })
     });
+
+    function mine() {
+        currentOre.damage(clickDamage)
+    }
 </script>
 
 <div class="main">
@@ -40,6 +47,7 @@
                     <div class="inner" style:width={health.div(maxHealth).toNumber() * 100 + "%"}></div>
                     <span>{health.toStringWhole(5, 3, 3)}/{maxHealth.toStringWhole(5, 3, 3)}</span>
                 </div>
+                <Button on:click={mine} disabled={clickDamage.lte(0)}>Mine</Button>
             </div>
         {:else}
             <h2>Waiting...</h2>
@@ -79,8 +87,9 @@
         flex-direction: column;
         width: 200px;
         height: 150px;
-        padding: 0px 8px;
+        padding: 0px 8px 8px 8px;
         box-sizing: border-box;
+        justify-content: space-around;
     }
 
     .info > .name {

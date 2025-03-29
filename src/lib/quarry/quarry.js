@@ -6,11 +6,12 @@ export default class Quarry {
     /**
      * @param {string} id
      * @param {Object} data
+     * @param {((() => import("$lib/onum").onumType) | import("$lib/onum").onumType)?} data.clickDamage
      * @param {Object[]} data.ores
      * @param {string} data.ores[].id
      * @param {string} data.ores[].name
      * @param {string?} data.ores[].image
-     * @param {((() => import("$lib/onum").onumType) | import("$lib/onum").onumType)?} data.ores[].value
+     * @param {((() => [import("$lib/onum").onumType, string]) | [import("$lib/onum").onumType, string])?} data.ores[].value
      * @param {import("$lib/onum").onumType} data.ores[].health
      * @param {Object[]} data.layers
      * @param {string} data.layers[].id
@@ -33,6 +34,8 @@ export default class Quarry {
             this.inventory[o.id] = resource
         })
 
+        this.clickDamage = typeof data.value == 'function' ? data.clickDamage : () => data.clickDamage ?? onum()
+
         this.setCurrentLayer(this.layers[0].id)
     }
 
@@ -44,6 +47,9 @@ export default class Quarry {
 
     /** @type {QuarryLayer[]} */
     layers = []
+
+    /** @type {() => import("$lib/onum").onumType} */
+    clickDamage
 
     /** @type {Object<string, Resource>} */
     inventory = {}
@@ -129,7 +135,7 @@ class QuarryOre {
     }
 
     isDestroyed() {
-        return this.health.lte(onum(0))
+        return this.health.lte(onum(1e-4)) //precision loss
     }
 
     clone() {

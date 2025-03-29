@@ -31,7 +31,8 @@ let quarry = new Quarry("normal", {
                 {id: "stone", rarity: 0.5}
             ]
         }
-    ]
+    ],
+    clickDamage: onum(0.2)
 })
 
 export default [
