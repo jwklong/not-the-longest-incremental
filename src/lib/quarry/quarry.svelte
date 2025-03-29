@@ -11,6 +11,8 @@
     } = $props()
 
     let quarry = $state(data.quarrys[id])
+    let unlockedLayers = $state(quarry.layers.filter(v => v.unlocked()))
+    let currentLayer = $state(quarry.currentLayer)
     let currentOre = $state(quarry.currentOre)
     let health = $state(onum())
     let maxHealth = $state(onum())
@@ -19,6 +21,8 @@
 
     onMount(() => {
         globalUpdater.addUpdate(() => {
+            unlockedLayers = quarry.layers.filter(v => v.unlocked())
+            currentLayer = quarry.currentLayer
             currentOre = quarry.currentOre
             health = currentOre ? currentOre.health : onum()
             maxHealth = currentOre ? currentOre.maxHealth : onum()
@@ -29,6 +33,10 @@
 
     function mine() {
         currentOre.damage(clickDamage)
+    }
+
+    function switchLayer(layer) {
+        quarry.setCurrentLayer(layer.id)
     }
 </script>
 
@@ -53,7 +61,11 @@
             <h2>Waiting...</h2>
         {/if}
     </div>
-    <div class="other"></div>
+    <div class="other">
+        {#each unlockedLayers as layer}
+            <Button on:click={() => switchLayer(layer)} color={layer.id === currentLayer.id ? ["var(--green-300)"] : []}>{layer.name}</Button>
+        {/each}
+    </div>
 </div>
 
 <style>
@@ -128,7 +140,12 @@
 
     .other {
         display: flex;
+        flex-direction: column;
+        padding: 8px;
+        box-sizing: border-box;
+        overflow-y: scroll;
         width: 150px;
         height: 300px;
+        gap: 8px;
     }
 </style>

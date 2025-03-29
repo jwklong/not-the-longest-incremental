@@ -2,7 +2,7 @@
     let { active = false, disabled = false, color=["#fff", "var(--blue-950)"], children } = $props()
 </script>
 
-<button class:active={active} disabled={disabled} style="background: {color[0] || "#fff"}; color: {color[1] || "inherit"};" on:click>
+<button class:active={active} disabled={disabled} style="background: {color[0] || "#fff"}; color: {color[1] || "var(--blue-950)"};" on:click>
     {@render children()}
 </button>
 
