@@ -1,5 +1,6 @@
 import onum from "$lib/onum";
 import Resource from "$lib/resource/resource";
+import UnknownImage from "$lib/assets/ores/unknown.svg"
 
 export default class Quarry {
     /**
@@ -8,6 +9,7 @@ export default class Quarry {
      * @param {Object[]} data.ores
      * @param {string} data.ores[].id
      * @param {string} data.ores[].name
+     * @param {string?} data.ores[].image
      * @param {((() => import("$lib/onum").onumType) | import("$lib/onum").onumType)?} data.ores[].value
      * @param {import("$lib/onum").onumType} data.ores[].health
      * @param {Object[]} data.layers
@@ -75,7 +77,7 @@ export default class Quarry {
     _cooldown = Date.now() + 1000
 
     tick(dt) {
-        if (this.currentOre.isDestroyed()) {
+        if (this.currentOre && this.currentOre.isDestroyed()) {
             this.inventory[this.currentOre.id].amount = this.inventory[this.currentOre.id].amount.add(1)
             this.currentOre = null
             this._cooldown = Date.now() + 1000
@@ -90,12 +92,14 @@ class QuarryOre {
      * @param {Object} data
      * @param {string} data.id
      * @param {string} data.name
+     * @param {string?} data.image
      * @param {((() => [import("$lib/onum").onumType, string]) | [import("$lib/onum").onumType, string])?} data.value
      * @param {import("$lib/onum").onumType} data.health
      */
     constructor(data) {
         this.id = data.id
         this.name = data.name
+        this.image = data.image ?? UnknownImage
         this.value = typeof data.value == 'function' ? data.value : () => data.value
         this.health = data.health
         this.maxHealth = data.health
@@ -106,6 +110,9 @@ class QuarryOre {
 
     /** @type {string} */
     name
+
+    /** @type {string} */
+    image
 
     /** @type {() => [import("$lib/onum").onumType, string]?} */
     value
