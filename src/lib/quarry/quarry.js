@@ -46,7 +46,7 @@ export default class Quarry {
     /** @type {Object<string, Resource>} */
     inventory = {}
 
-    /** @type {QuarryOre} */
+    /** @type {QuarryOre?} */
     currentOre
 
     /** @type {QuarryLayer} */
@@ -67,13 +67,19 @@ export default class Quarry {
      */
     setCurrentLayer(id) {
         this.currentLayer = this.layers.find(v => v.id == id)
-        this.setCurrentOre(this.currentLayer.getRandomOreId())
+        this.currentOre = null
+        this._cooldown = Date.now() + 1000
         return this.currentLayer
     }
+
+    _cooldown = Date.now() + 1000
 
     tick(dt) {
         if (this.currentOre.isDestroyed()) {
             this.inventory[this.currentOre.id].amount = this.inventory[this.currentOre.id].amount.add(1)
+            this.currentOre = null
+            this._cooldown = Date.now() + 1000
+        } else if (!this.currentOre && this._cooldown < Date.now()) {
             this.setCurrentOre(this.currentLayer.getRandomOreId())
         }
     }
