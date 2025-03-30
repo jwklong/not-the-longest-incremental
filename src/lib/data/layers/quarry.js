@@ -97,7 +97,7 @@ miner.cost = [
     }), "euros"
 ]
 miner.effect = function() {
-    let base = onum(0.2)
+    let base = onum(0.1)
     base = base.mul(this.amount)
 
     return [base]
