@@ -132,12 +132,12 @@ export default [
     })(),
     (() => {
         let ach = new Achievement
-        ach.name = "Reverse counting"
+        ach.name = "NTLI 2"
         ach.location = [2, 4]
 
-        ach.description = "Get 5.43e21 points."
+        ach.description = "Enter the quarry."
         ach.requirement = function() {
-            return data.resources['points'].amount.gte(5.43e21)
+            return data.buildings['booster'].amount.gte(16)
         }
 
         return ach
@@ -157,12 +157,12 @@ export default [
 
     (() => {
         let ach = new Achievement
-        ach.name = "NTLI 2"
+        ach.name = "Economy"
         ach.location = [3, 1]
 
-        ach.description = "Enter the quarry."
+        ach.description = "Get your first whole euro."
         ach.requirement = function() {
-            return data.buildings['booster'].amount.gte(16)
+            return data.resources['euros'].amount.gte(1)
         }
 
         return ach
