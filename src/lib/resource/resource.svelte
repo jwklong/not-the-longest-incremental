@@ -29,7 +29,7 @@
  -->{#if !spanConfig.onLeft}<span class={spanConfig.symbolClass}>{spanConfig.symbol}</span>{/if}<!--
  -->{#if showGain && gain.gt(0)}<!--
      --><sub><!--
-     -->(+{gain.toStringWhole(5, 3, 3)}/s)<!--
+     -->({gain.lt(0) ? "-" : "+"}{gain.abs().toStringWhole(5, 3, 3)}/s)<!--
      --></sub><!--
  -->{/if}
 </span>

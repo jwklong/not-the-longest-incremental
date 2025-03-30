@@ -8,6 +8,9 @@ import CoalOre from "$lib/assets/ores/coal.svg";
 import CopperOre from "$lib/assets/ores/copper.svg";
 import IronOre from "$lib/assets/ores/iron.svg";
 import GoldOre from "$lib/assets/ores/gold.svg";
+import Building from "$lib/building/building";
+import data from "../data";
+import Cost from "$lib/cost";
 
 let euros = new Resource("euros")
 euros.name = "Euros"
@@ -43,7 +46,7 @@ let quarry = new Quarry("normal", {
             name: "Copper",
             image: CopperOre,
             health: onum(6),
-            value: [onum(0.8), "euros"]
+            value: [onum(0.08), "euros"]
         },
         {
             id: "iron",
@@ -74,11 +77,39 @@ let quarry = new Quarry("normal", {
             ]
         }
     ],
-    clickDamage: onum(0.2)
+    clickDamage: onum(0.2),
+    autoDamage: (dt) => {
+        let base = onum()
+
+        base = base.add(miner.effect())
+
+        base = base.mul(dt)
+        return base
+    }
 })
+
+let miner = new Building('miner')
+miner.name = 'Miner'
+miner.cost = [
+    new Cost({
+        base: onum(2),
+        multiplicative: onum(2)
+    }), "euros"
+]
+miner.effect = function() {
+    let base = onum(0.2)
+    base = base.mul(this.amount)
+
+    return [base]
+}
+miner.visible = function() {
+    return data.resources['euros'].amount.gte(1) || miner.amount.gte(1)
+}
 
 export default [
     euros,
 
-    quarry
+    quarry,
+
+    miner
 ]

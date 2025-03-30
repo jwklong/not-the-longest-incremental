@@ -7,6 +7,7 @@ export default class Quarry {
      * @param {string} id
      * @param {Object} data
      * @param {((() => import("$lib/onum").onumType) | import("$lib/onum").onumType)?} data.clickDamage
+     * @param {((dt) => import("$lib/onum").onumType)?} data.autoDamage
      * @param {Object[]} data.ores
      * @param {string} data.ores[].id
      * @param {string} data.ores[].name
@@ -34,7 +35,8 @@ export default class Quarry {
             this.inventory[o.id] = resource
         })
 
-        this.clickDamage = typeof data.value == 'function' ? data.clickDamage : () => data.clickDamage ?? onum()
+        this.clickDamage = typeof data.clickDamage == 'function' ? data.clickDamage : () => data.clickDamage ?? onum()
+        this.autoDamage = data.autoDamage ?? (() => onum())
 
         this.setCurrentLayer(this.layers[0].id)
     }
@@ -50,6 +52,9 @@ export default class Quarry {
 
     /** @type {() => import("$lib/onum").onumType} */
     clickDamage
+
+    /** @type {(dt) => import("$lib/onum").onumType} */
+    autoDamage
 
     /** @type {Object<string, Resource>} */
     inventory = {}
@@ -83,10 +88,14 @@ export default class Quarry {
     _cooldown = Date.now() + 1000
 
     tick(dt) {
-        if (this.currentOre && this.currentOre.isDestroyed()) {
-            this.inventory[this.currentOre.id].amount = this.inventory[this.currentOre.id].amount.add(1)
-            this.currentOre = null
-            this._cooldown = Date.now() + 1000
+        if (this.currentOre) {
+            if (this.currentOre.isDestroyed()) {
+                this.inventory[this.currentOre.id].amount = this.inventory[this.currentOre.id].amount.add(1)
+                this.currentOre = null
+                this._cooldown = Date.now() + 1000
+            } else {
+                this.currentOre.damage(this.autoDamage(dt))
+            }
         } else if (!this.currentOre && this._cooldown < Date.now()) {
             this.setCurrentOre(this.currentLayer.getRandomOreId())
         }
