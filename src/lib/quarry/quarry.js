@@ -93,7 +93,7 @@ export default class Quarry {
     }
 }
 
-class QuarryOre {
+export class QuarryOre {
     /**
      * @param {Object} data
      * @param {string} data.id
@@ -143,7 +143,7 @@ class QuarryOre {
     }
 }
 
-class QuarryLayer {
+export class QuarryLayer {
     /**
      * @param {Object} data
      * @param {string} data.id

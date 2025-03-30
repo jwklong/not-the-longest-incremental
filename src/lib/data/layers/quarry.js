@@ -19,7 +19,8 @@ let quarry = new Quarry("normal", {
         {
             id: "stone",
             name: "Stone",
-            health: onum(3)
+            health: onum(3),
+            value: [onum(0.05), "euros"]
         }
     ],
     layers: [

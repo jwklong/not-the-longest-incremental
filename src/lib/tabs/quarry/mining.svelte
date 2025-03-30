@@ -2,4 +2,6 @@
     import Quarry from "$lib/quarry/quarry.svelte";
 </script>
 
-<Quarry id="normal" />
+<div>
+    <Quarry id="normal" />
+</div>

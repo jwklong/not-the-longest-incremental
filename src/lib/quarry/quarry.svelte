@@ -143,7 +143,6 @@
         flex-direction: column;
         padding: 8px;
         box-sizing: border-box;
-        overflow-y: scroll;
         width: 150px;
         height: 300px;
         gap: 8px;
