@@ -102,6 +102,14 @@ class Data {
             }
         }
 
+        for (let quarry of Object.values(this.quarrys)) {
+            object.quarrys[quarry.id] = {
+                currentLayer: quarry.currentLayer.id,
+                currentOre: quarry.currentOre.id,
+                currentHealth: quarry.currentOre.health.toJSON()
+            }
+        }
+
         for (let achievement of this.achievements) {
             object.achievements[achievement.location.join("")] = {
                 unlocked: achievement.unlocked,
@@ -151,6 +159,16 @@ class Data {
             let upgrade = this.upgrades[upgradeID]
             if (upgrade) {
                 upgrade.bought = Boolean(loadedUpgrade.bought)
+            }
+        }
+
+        for (let quarryID of Object.keys(object.quarrys ?? {})) {
+            let loadedQuarry = object.quarrys[quarryID]
+            let quarry = this.quarrys[quarryID]
+            if (quarry) {
+                quarry.setCurrentLayer(loadedQuarry.currentLayer)
+                quarry.setCurrentOre(loadedQuarry.currentOre)
+                quarry.currentOre.health = onum(loadedQuarry.currentHealth)
             }
         }
 
