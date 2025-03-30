@@ -29,28 +29,28 @@ let quarry = new Quarry("normal", {
             name: "Stone",
             image: StoneOre,
             health: onum(3),
-            value: [onum(0.05), "euros"]
+            value: [onum(0.03), "euros"]
         },
         {
             id: "coal",
             name: "Coal",
             image: CoalOre,
             health: onum(4),
-            value: [onum(0.08), "euros"]
+            value: [onum(0.05), "euros"]
         },
         {
             id: "copper",
             name: "Copper",
             image: CopperOre,
             health: onum(6),
-            value: [onum(0.1), "euros"]
+            value: [onum(0.8), "euros"]
         },
         {
             id: "iron",
             name: "Iron",
             image: IronOre,
             health: onum(10),
-            value: [onum(0.15), "euros"]
+            value: [onum(0.12), "euros"]
         },
         {
             id: "gold",
