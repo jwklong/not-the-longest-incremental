@@ -110,6 +110,8 @@
 
     :global(*) {
         font-family: "Noto Sans", sans-serif;
+        user-select: none;
+        -webkit-user-drag: none;
     }
 
     .root {

@@ -30,5 +30,6 @@
 
     button:disabled {
         filter: grayscale(0.5) opacity(0.7) brightness(0.7);
+        cursor: initial;
     }
 </style>

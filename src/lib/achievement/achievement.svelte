@@ -46,7 +46,6 @@
         background: var(--red-900);
         border-radius: 8px;
         position: relative;
-        user-select: none;
         box-shadow: inset 0 0 16px 2px #0008;
     }
     .achievement.completed {
