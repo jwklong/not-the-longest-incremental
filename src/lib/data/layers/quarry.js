@@ -40,28 +40,28 @@ let quarry = new Quarry("normal", {
             name: "Coal",
             image: CoalOre,
             health: onum(4),
-            value: [onum(0.05), "euros"]
+            value: [onum(0.06), "euros"]
         },
         {
             id: "copper",
             name: "Copper",
             image: CopperOre,
             health: onum(6),
-            value: [onum(0.08), "euros"]
+            value: [onum(0.09), "euros"]
         },
         {
             id: "iron",
             name: "Iron",
             image: IronOre,
             health: onum(10),
-            value: [onum(0.12), "euros"]
+            value: [onum(0.15), "euros"]
         },
         {
             id: "gold",
             name: "Gold",
             image: GoldOre,
             health: onum(5),
-            value: [onum(0.2), "euros"]
+            value: [onum(0.3), "euros"]
         }
     ],
     layers: [
@@ -95,8 +95,10 @@ let quarry = new Quarry("normal", {
     }
 })
 
+import MinerImage from "$lib/assets/buildings/miner.svg";
 let miner = new Building('miner')
 miner.name = 'Miner'
+miner.image = MinerImage
 miner.cost = [
     new Cost({
         base: onum(2),

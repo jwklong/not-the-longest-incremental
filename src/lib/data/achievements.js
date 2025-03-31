@@ -157,12 +157,12 @@ export default [
 
     (() => {
         let ach = new Achievement
-        ach.name = "Economy"
+        ach.name = "Labour"
         ach.location = [3, 1]
 
-        ach.description = "Get your first whole euro."
+        ach.description = "Buy a Miner."
         ach.requirement = function() {
-            return data.resources['euros'].amount.gte(1)
+            return data.buildings['miner'].amount.gte(1)
         }
 
         return ach
