@@ -55,7 +55,7 @@
                     <div class="inner" style:width={health.div(maxHealth).toNumber() * 100 + "%"}></div>
                     <span>{health.toStringWhole(5, 3, 3)}/{maxHealth.toStringWhole(5, 3, 3)}</span>
                 </div>
-                <Button on:click={mine} disabled={clickDamage.lte(0)}>Mine</Button>
+                <Button on:click={mine} disabled={clickDamage.lte(0)}>Mine {#if clickDamage.gt(0)}(-{clickDamage.toStringWhole(5, 3, 3)}){/if}</Button>
             </div>
         {:else}
             <h2>Waiting...</h2>

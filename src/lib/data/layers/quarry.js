@@ -11,6 +11,7 @@ import GoldOre from "$lib/assets/ores/gold.svg";
 import Building from "$lib/building/building";
 import data from "../data";
 import Cost from "$lib/cost";
+import Upgrade from "$lib/upgrade/upgrade";
 
 let euros = new Resource("euros")
 euros.name = "Euros"
@@ -77,7 +78,13 @@ let quarry = new Quarry("normal", {
             ]
         }
     ],
-    clickDamage: onum(0.2),
+    clickDamage: () => {
+        let base = onum(0.2)
+
+        if (q1.bought) base = base.add(q1.effect())
+
+        return base
+    },
     autoDamage: (dt) => {
         let base = onum()
 
@@ -106,10 +113,28 @@ miner.visible = function() {
     return data.resources['euros'].amount.gte(1) || miner.amount.gte(1)
 }
 
+let q1 = new Upgrade('q1')
+q1.cost = function() {
+    let base = onum(5)
+    
+    return [base, "euros"]
+}
+q1.effect = function() {
+    let base = miner.amount
+    base = base.mul(0.05)
+    
+    return base
+}
+q1.visible = function() {
+    return miner.amount.gte(1)
+}
+
 export default [
     euros,
 
     quarry,
 
-    miner
+    miner,
+
+    q1
 ]

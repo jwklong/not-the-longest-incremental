@@ -1,6 +1,7 @@
 <script>
     import Quarry from "$lib/quarry/quarry.svelte";
     import Building from "$lib/building/building.svelte";
+    import Upgrade from "$lib/upgrade/upgrade.svelte";
 </script>
 
 <div class="main">
@@ -12,16 +13,31 @@
             {/snippet}
         </Building>
     </div>
+    <div class="upgrades">
+        <Upgrade id="q1">
+            {#snippet desc(effect)}
+            Increase damage of the mine button based on amount of miners.<br>
+            Effect: +{effect.toStringWhole(5, 3, 3)}
+            {/snippet}
+        </Upgrade>
+    </div>
 </div>
 
 <style>
     .main {
-        gap: 16px;
+        gap: 32px;
     }
 
     .generators {
         display: flex;
         flex-direction: column;
         gap: 8px;
+    }
+
+    .upgrades {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        width: 848px;
     }
 </style>
