@@ -167,4 +167,16 @@ export default [
 
         return ach
     })(),
+    (() => {
+        let ach = new Achievement
+        ach.name = "Who needs boosters?"
+        ach.location = [3, 2]
+
+        ach.description = "Get a Crystal."
+        ach.requirement = function() {
+            return data.resources['quarry_normal_crystal'].amount.gte(1)
+        }
+
+        return ach
+    })(),
 ]

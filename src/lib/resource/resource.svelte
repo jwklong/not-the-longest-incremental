@@ -46,7 +46,7 @@
     }
 
     .symbolEuros {
-        color: var(--orange-700);
+        color: var(--orange-800);
         font-weight: bold;
     }
 

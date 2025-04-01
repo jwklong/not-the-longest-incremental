@@ -13,6 +13,11 @@ import CopperOre from "$lib/assets/ores/copper.svg";
 import IronOre from "$lib/assets/ores/iron.svg";
 import GoldOre from "$lib/assets/ores/gold.svg";
 import TitaniumOre from "$lib/assets/ores/titanium.svg";
+import CrystalOre from "$lib/assets/ores/crystal.svg";
+import RubyOre from "$lib/assets/ores/ruby.svg";
+import EmeraldOre from "$lib/assets/ores/emerald.svg";
+import SapphireOre from "$lib/assets/ores/sapphire.svg";
+import DiamondOre from "$lib/assets/ores/diamond.svg";
 
 let euros = new Resource("euros")
 euros.name = "Euros"
@@ -75,6 +80,7 @@ let quarry = new Quarry("normal", {
         {
             id: "crystal",
             name: "Crystal",
+            image: CrystalOre,
             health: onum(20),
             value: () => {
                 let boosters = data.buildings['booster'].amount
@@ -85,24 +91,28 @@ let quarry = new Quarry("normal", {
         {
             id: "ruby",
             name: "Ruby",
+            image: RubyOre,
             health: onum(25),
             value: [onum(0.5), "euros"]
         },
         {
             id: "emerald",
             name: "Emerald",
+            image: EmeraldOre,
             health: onum(25),
             value: [onum(0.5), "euros"]
         },
         {
             id: "sapphire",
             name: "Sapphire",
+            image: SapphireOre,
             health: onum(25),
             value: [onum(0.5), "euros"]
         },
         {
             id: "diamond",
             name: "Diamond",
+            image: DiamondOre,
             health: onum(40),
             value: [onum(0.8), "euros"]
         }
