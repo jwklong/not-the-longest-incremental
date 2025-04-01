@@ -215,7 +215,7 @@ q2.visible = function() {
 
 let q3 = new Upgrade('q3')
 q3.cost = function() {
-    let base = onum(30)
+    let base = onum(20)
     
     return [base, "euros"]
 }
