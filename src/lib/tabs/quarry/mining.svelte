@@ -20,6 +20,16 @@
             Effect: +{effect.toStringWhole(5, 3, 3)}
             {/snippet}
         </Upgrade>
+        <Upgrade id="q2">
+            {#snippet desc(effect)}
+            Unlock the Geode quarry layer.
+            {/snippet}
+        </Upgrade>
+        <Upgrade id="q3">
+            {#snippet desc(effect)}
+            Unlock more point upgrades.
+            {/snippet}
+        </Upgrade>
     </div>
 </div>
 

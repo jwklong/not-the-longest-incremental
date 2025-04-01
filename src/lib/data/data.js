@@ -58,7 +58,7 @@ class Data {
             if (!v.unlocked && v.requirement()) {
                 v.unlocked = true
             }
-            if (!v.gilded && v.gildedRequirement() && v.unlocked) {
+            if (v.unlocked && !v.gilded && v.gildedRequirement()) {
                 v.gilded = true
             }
         })

@@ -1,6 +1,10 @@
 import Resource from "$lib/resource/resource";
 import Quarry from "$lib/quarry/quarry";
 import onum from "$lib/onum";
+import Building from "$lib/building/building";
+import data from "../data";
+import Cost from "$lib/cost";
+import Upgrade from "$lib/upgrade/upgrade";
 
 import DirtOre from "$lib/assets/ores/dirt.svg";
 import StoneOre from "$lib/assets/ores/stone.svg";
@@ -8,10 +12,7 @@ import CoalOre from "$lib/assets/ores/coal.svg";
 import CopperOre from "$lib/assets/ores/copper.svg";
 import IronOre from "$lib/assets/ores/iron.svg";
 import GoldOre from "$lib/assets/ores/gold.svg";
-import Building from "$lib/building/building";
-import data from "../data";
-import Cost from "$lib/cost";
-import Upgrade from "$lib/upgrade/upgrade";
+import TitaniumOre from "$lib/assets/ores/titanium.svg";
 
 let euros = new Resource("euros")
 euros.name = "Euros"
@@ -26,7 +27,8 @@ let quarry = new Quarry("normal", {
             id: "dirt",
             name: "Dirt",
             image: DirtOre,
-            health: onum(1)
+            health: onum(1),
+            value: [onum(0.01), "euros"]
         },
         {
             id: "stone",
@@ -47,7 +49,7 @@ let quarry = new Quarry("normal", {
             name: "Copper",
             image: CopperOre,
             health: onum(6),
-            value: [onum(0.09), "euros"]
+            value: [onum(0.1), "euros"]
         },
         {
             id: "iron",
@@ -62,6 +64,47 @@ let quarry = new Quarry("normal", {
             image: GoldOre,
             health: onum(5),
             value: [onum(0.3), "euros"]
+        },
+        {
+            id: "titanium",
+            name: "Titanium",
+            image: TitaniumOre,
+            health: onum(30),
+            value: [onum(0.4), "euros"]
+        },
+        {
+            id: "crystal",
+            name: "Crystal",
+            health: onum(20),
+            value: () => {
+                let boosters = data.buildings['booster'].amount
+
+                return [boosters, "boosterPoints"]
+            }
+        },
+        {
+            id: "ruby",
+            name: "Ruby",
+            health: onum(25),
+            value: [onum(0.5), "euros"]
+        },
+        {
+            id: "emerald",
+            name: "Emerald",
+            health: onum(25),
+            value: [onum(0.5), "euros"]
+        },
+        {
+            id: "sapphire",
+            name: "Sapphire",
+            health: onum(25),
+            value: [onum(0.5), "euros"]
+        },
+        {
+            id: "diamond",
+            name: "Diamond",
+            health: onum(40),
+            value: [onum(0.8), "euros"]
         }
     ],
     layers: [
@@ -74,8 +117,27 @@ let quarry = new Quarry("normal", {
                 {id: "coal", rarity: 0.2},
                 {id: "copper", rarity: 0.2},
                 {id: "iron", rarity: 0.1},
-                {id: "gold", rarity: 0.08}
+                {id: "gold", rarity: 0.08},
+                {id: "titanium", rarity: 0.01}
             ]
+        },
+        {
+            id: "1",
+            name: "Geode",
+            ores: [
+                {id: "stone", rarity: 1},
+                {id: "coal", rarity: 0.3},
+                {id: "copper", rarity: 0.3},
+                {id: "iron", rarity: 0.2},
+                {id: "gold", rarity: 0.2},
+                {id: "titanium", rarity: 0.2},
+                {id: "crystal", rarity: 0.15},
+                {id: "ruby", rarity: 0.1},
+                {id: "emerald", rarity: 0.1},
+                {id: "sapphire", rarity: 0.1},
+                {id: "diamond", rarity: 0.03}
+            ],
+            unlocked: () => q2.bought
         }
     ],
     clickDamage: () => {
@@ -102,7 +164,7 @@ miner.image = MinerImage
 miner.cost = [
     new Cost({
         base: onum(2),
-        multiplicative: onum(2)
+        multiplicative: onum(1.5)
     }), "euros"
 ]
 miner.effect = function() {
@@ -131,6 +193,26 @@ q1.visible = function() {
     return miner.amount.gte(1)
 }
 
+let q2 = new Upgrade('q2')
+q2.cost = function() {
+    let base = onum(20)
+    
+    return [base, "quarry_normal_copper"]
+}
+q2.visible = function() {
+    return q1.bought
+}
+
+let q3 = new Upgrade('q3')
+q3.cost = function() {
+    let base = onum(50)
+    
+    return [base, "euros"]
+}
+q3.visible = function() {
+    return q2.bought
+}
+
 export default [
     euros,
 
@@ -138,5 +220,7 @@ export default [
 
     miner,
 
-    q1
+    q1,
+    q2,
+    q3
 ]
