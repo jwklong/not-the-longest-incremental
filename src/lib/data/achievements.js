@@ -99,9 +99,9 @@ export default [
             return data.upgrades['bp1'].cost()[0].gt(4)
         }
 
-        ach.gildedDescription = "Have all 6 perks at once."
+        ach.gildedDescription = "Have 4 perks at once."
         ach.gildedRequirement = function() {
-            return data.upgrades['bp1'].cost()[0].gt(onum(4).pow(6))
+            return data.upgrades['bp1'].cost()[0].gt(onum(4).pow(4))
         }
 
         return ach
@@ -115,6 +115,11 @@ export default [
         ach.requirement = function() {
             return data.upgrades['p5'].bought
         }
+        
+        ach.gildedDescription = "Buy upgrade 7."
+        ach.gildedRequirement = function() {
+            return data.upgrades['p7'].bought
+        }
 
         return ach
     })(),
@@ -126,6 +131,11 @@ export default [
         ach.description = "Buy a Provider."
         ach.requirement = function() {
             return data.buildings['provider'].amount.gte(1)
+        }
+        
+        ach.description = "Buy 50 Providers."
+        ach.requirement = function() {
+            return data.buildings['provider'].amount.gte(50)
         }
 
         return ach
@@ -175,6 +185,18 @@ export default [
         ach.description = "Get a Crystal."
         ach.requirement = function() {
             return data.resources['quarry_normal_crystal'].amount.gte(1)
+        }
+
+        return ach
+    })(),
+    (() => {
+        let ach = new Achievement
+        ach.name = "I remember this!"
+        ach.location = [3, 3]
+
+        ach.description = "Buy quarry upgrade 3."
+        ach.requirement = function() {
+            return data.upgrades['q3'].bought
         }
 
         return ach

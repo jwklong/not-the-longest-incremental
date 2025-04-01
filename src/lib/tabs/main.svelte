@@ -102,6 +102,17 @@
             Effect: x{effect.toStringWhole(5, 3, 3)}
             {/snippet}
         </Upgrade>
+        <Upgrade id="p7">
+            {#snippet desc(effect)}
+            ALL point buildings produce points 10x faster.
+            {/snippet}
+        </Upgrade>
+        <Upgrade id="p8">
+            {#snippet desc(effect)}
+            Euros boost point production.
+            Effect: x<Resource id="points" amountOverride={effect} />
+            {/snippet}
+        </Upgrade>
     </div>
 </div>
 

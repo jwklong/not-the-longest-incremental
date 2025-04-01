@@ -67,6 +67,7 @@ maker.effect = function() {
     base = globalPointsBoost(base)
     if (data.upgrades['bp2'].bought) base = base.mul(onum(1.1).pow(generator.amount))
     if (p5.bought) base = base.mul(10)
+    if (p7.bought) base = base.mul(10)
     
     return [base, "points"]
 }
@@ -97,7 +98,8 @@ generator.effect = function() {
 
     base = globalPointsBoost(base)
     if (data.upgrades['bp2'].bought) base = base.mul(onum(1.1).pow(producer.amount))
-
+    if (p7.bought) base = base.mul(10)
+    
     return [base, "points"]
 }
 generator.visible = function() {
@@ -130,7 +132,8 @@ producer.effect = function() {
 
     base = globalPointsBoost(base)
     if (data.upgrades['bp2'].bought) base = base.mul(onum(1.1).pow(fabricator.amount))
-
+    if (p7.bought) base = base.mul(10)
+    
     return [base, "points"]
 }
 producer.visible = function() {
@@ -163,6 +166,7 @@ fabricator.effect = function() {
 
     base = globalPointsBoost(base)
     if (p6.bought) base = base.mul(p6.effect())
+    if (p7.bought) base = base.mul(10)
     
     return [base, "points"]
 }
@@ -260,6 +264,34 @@ p6.visible = function() {
     return p5.bought && fabricator.visible()
 }
 
+let p7 = new Upgrade("p7")
+p7.cost = function() {
+    let base = onum(1e27)
+
+    return [base, "points"]
+}
+p7.visible = function() {
+    return p6.bought && data.upgrades['q3'].bought
+}
+
+let p8 = new Upgrade("p8")
+p8.cost = function() {
+    let base = onum(1e40)
+
+    return [base, "points"]
+}
+p8.effect = function() {
+    let base = data.resources['euros'].amount
+
+    base = base.add(1)
+    base = base.root(5)
+
+    return base
+}
+p8.visible = function() {
+    return p6.bought && data.upgrades['q3'].bought
+}
+
 export default [
     points,
 
@@ -274,4 +306,6 @@ export default [
     p4,
     p5,
     p6,
+    p7,
+    p8
 ]
