@@ -85,6 +85,10 @@
     .value {
         font-size: 1.2em;
         font-weight: 500;
+        padding: 0px 4px;
+        background-color: var(--blue-400);
+        color: var(--blue-950);
+        border-radius: 4px;
     }
 
     .right {
