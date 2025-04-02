@@ -1,5 +1,17 @@
 <div class="main">
     <div>
+        <h3>v0.2.0 - The Labour Update</h3>
+        <ul>
+            <li>the quarry! mine ores and get euros</li>
+            <li>6 new upgrades</li>
+            <li>6 more achievements & 5 more gilded achievements</li>
+            <li>more opimisations (i hope this works !!)</li>
+            <li>milestones only shows unlocked and the next one to unlock instead of all of them</li>
+            <li>even more news ticker messages!!!!</li>
+            <li>some pre-quarry balancing changes</li>
+        </ul>
+    </div>
+    <div>
         <h3>v0.1.2</h3>
         <ul>
             <li>buffed 5th upgrade from 5x to 10x</li>
