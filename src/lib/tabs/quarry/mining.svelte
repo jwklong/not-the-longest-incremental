@@ -30,6 +30,11 @@
             Unlock more point upgrades.
             {/snippet}
         </Upgrade>
+        <Upgrade id="q4">
+            {#snippet desc(effect)}
+            Double value of ores.
+            {/snippet}
+        </Upgrade>
     </div>
 </div>
 

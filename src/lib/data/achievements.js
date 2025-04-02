@@ -133,9 +133,9 @@ export default [
             return data.buildings['provider'].amount.gte(1)
         }
         
-        ach.description = "Buy 50 Providers."
-        ach.requirement = function() {
-            return data.buildings['provider'].amount.gte(50)
+        ach.gildedDescription = "Buy 80 Providers."
+        ach.gildedRequirement = function() {
+            return data.buildings['provider'].amount.gte(80)
         }
 
         return ach
@@ -148,6 +148,11 @@ export default [
         ach.description = "Enter the quarry."
         ach.requirement = function() {
             return data.buildings['booster'].amount.gte(16)
+        }
+
+        ach.gildedDescription = "Get 50 euros."
+        ach.gildedRequirement = function() {
+            return data.resources['euros'].amount.gte(50)
         }
 
         return ach
@@ -175,6 +180,11 @@ export default [
             return data.buildings['miner'].amount.gte(1)
         }
 
+        ach.gildedDescription = "Buy 10 Miners."
+        ach.gildedRequirement = function() {
+            return data.buildings['miner'].amount.gte(10)
+        }
+
         return ach
     })(),
     (() => {
@@ -197,6 +207,19 @@ export default [
         ach.description = "Buy quarry upgrade 3."
         ach.requirement = function() {
             return data.upgrades['q3'].bought
+        }
+
+        return ach
+    })(),
+    //space for 34
+    (() => {
+        let ach = new Achievement
+        ach.name = "Market inflation"
+        ach.location = [3, 5]
+
+        ach.description = "Buy quarry upgrade 4."
+        ach.requirement = function() {
+            return data.upgrades['q4'].bought
         }
 
         return ach

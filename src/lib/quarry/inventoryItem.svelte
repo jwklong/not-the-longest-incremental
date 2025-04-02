@@ -12,17 +12,17 @@
         resource
     } = $props()
 
-    let amount = $state(resource.amount)
+    let amount = $state(resource.amount.mul(ore.quarry.globalValueBoost()))
 
     onMount(() => {
         globalUpdater.addUpdate(() => {
-            amount = resource.amount
+            amount = resource.amount.mul(ore.quarry.globalValueBoost())
         })
     });
 
     function sell() {
         if (ore.value()) {
-            data.resources[ore.value()[1]].amount = data.resources[ore.value()[1]].amount.add(ore.value()[0].mul(amount))
+            data.resources[ore.value()[1]].amount = data.resources[ore.value()[1]].amount.add(ore.value()[0].mul(amount).mul(ore.quarry.globalValueBoost()))
         }
 
         resource.amount = onum()

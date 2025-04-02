@@ -85,6 +85,8 @@ let quarry = new Quarry("normal", {
             value: () => {
                 let boosters = data.buildings['booster'].amount
 
+                boosters = boosters.div(2)
+
                 return [boosters, "boosterPoints"]
             }
         },
@@ -164,6 +166,13 @@ let quarry = new Quarry("normal", {
 
         base = base.mul(dt)
         return base
+    },
+    globalValueBoost: () => {
+        let base = onum(1)
+
+        if (q4.bought) base = base.mul(2)
+
+        return base
     }
 })
 
@@ -223,6 +232,16 @@ q3.visible = function() {
     return q2.bought
 }
 
+let q4 = new Upgrade('q4')
+q4.cost = function() {
+    let base = onum(10)
+    
+    return [base, "quarry_normal_diamond"]
+}
+q4.visible = function() {
+    return q3.bought
+}
+
 export default [
     euros,
 
@@ -232,5 +251,6 @@ export default [
 
     q1,
     q2,
-    q3
+    q3,
+    q4
 ]

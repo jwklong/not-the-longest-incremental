@@ -8,6 +8,7 @@ export default class Quarry {
      * @param {Object} data
      * @param {((() => import("$lib/onum").onumType) | import("$lib/onum").onumType)?} data.clickDamage
      * @param {((dt) => import("$lib/onum").onumType)?} data.autoDamage
+     * @param {(() => import("$lib/onum").onumType)?} data.globalValueBoost
      * @param {Object[]} data.ores
      * @param {string} data.ores[].id
      * @param {string} data.ores[].name
@@ -24,7 +25,7 @@ export default class Quarry {
      */
     constructor(id, data) {
         this.id = id
-        this.ores = data.ores.map(o => new QuarryOre(o))
+        this.ores = data.ores.map(o => new QuarryOre(o, this))
         this.layers = data.layers.map(l => new QuarryLayer(l))
 
         this.ores.forEach(o => {
@@ -37,6 +38,7 @@ export default class Quarry {
 
         this.clickDamage = typeof data.clickDamage == 'function' ? data.clickDamage : () => data.clickDamage ?? onum()
         this.autoDamage = data.autoDamage ?? (() => onum())
+        this.globalValueBoost = data.globalValueBoost ?? (() => onum(1))
 
         this.setCurrentLayer(this.layers[0].id)
     }
@@ -55,6 +57,9 @@ export default class Quarry {
 
     /** @type {(dt) => import("$lib/onum").onumType} */
     autoDamage
+
+    /** @type {() => import("$lib/onum").onumType} */
+    globalValueBoost
 
     /** @type {Object<string, Resource>} */
     inventory = {}
@@ -110,8 +115,11 @@ export class QuarryOre {
      * @param {string?} data.image
      * @param {((() => [import("$lib/onum").onumType, string]) | [import("$lib/onum").onumType, string])?} data.value
      * @param {import("$lib/onum").onumType} data.health
+     * @param {Quarry} quarry
      */
-    constructor(data) {
+    constructor(data, quarry) {
+        this.quarry = quarry
+
         this.id = data.id
         this.name = data.name
         this.image = data.image ?? UnknownImage
@@ -119,6 +127,9 @@ export class QuarryOre {
         this.health = data.health
         this.maxHealth = data.health
     }
+
+    /** @type {Quarry} */
+    quarry
 
     /** @type {string} */
     id
@@ -148,7 +159,7 @@ export class QuarryOre {
     }
 
     clone() {
-        return new QuarryOre(this)
+        return new QuarryOre(this, this.quarry)
     }
 }
 
