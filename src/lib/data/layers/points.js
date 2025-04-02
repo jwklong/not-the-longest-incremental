@@ -266,7 +266,7 @@ p6.visible = function() {
 
 let p7 = new Upgrade("p7")
 p7.cost = function() {
-    let base = onum(1e27)
+    let base = onum(1e26)
 
     return [base, "points"]
 }
