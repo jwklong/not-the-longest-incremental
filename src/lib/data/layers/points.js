@@ -37,6 +37,8 @@ function globalPointsBoost(num) {
     if (booster.amount.gte(3)) num = num.mul(3)
     num = num.mul(provider.effect()[0])
     if (bp4.bought) num = num.mul(bp4.effect())
+    if (p8.bought) num = num.mul(p8.effect())
+
     return num
 }
 
@@ -284,7 +286,7 @@ p8.effect = function() {
     let base = data.resources['euros'].amount
 
     base = base.add(1)
-    base = base.root(5)
+    base = base.sqrt()
 
     return base
 }

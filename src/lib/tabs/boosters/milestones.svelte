@@ -58,6 +58,12 @@
         <span>The Quarry.</span>
         <span>16 Boosters</span>
     </Milestone>
+    <Milestone requirement={() => {
+        return data.buildings['booster'].amount.gte(42)
+    }}>
+        <span>Coming soon...</span>
+        <span>42 Boosters</span>
+    </Milestone>
 </div>
 
 <style>

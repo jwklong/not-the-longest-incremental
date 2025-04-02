@@ -23,6 +23,8 @@
             data.upgrades['p4'].buy()
             data.upgrades['p5'].buy()
             data.upgrades['p6'].buy()
+            data.upgrades['p7'].buy()
+            data.upgrades['p8'].buy()
         }
 
         data.buildings['provider'].maxBuy()

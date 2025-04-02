@@ -43,4 +43,8 @@
             font-size: 0.75em;
         }
     }
+
+    :global(.milestone:not(.active) + .milestone:not(.active)) {
+        display: none;
+    }
 </style>

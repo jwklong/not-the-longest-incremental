@@ -20,6 +20,8 @@ boosterLayer.resetFunction = function() {
     data.upgrades['p4'].bought = false
     data.upgrades['p5'].bought = false
     data.upgrades['p6'].bought = false
+    data.upgrades['p7'].bought = false
+    data.upgrades['p8'].bought = false
     
     data.resources['points'].amount = onum(10)
 }
