@@ -13,9 +13,12 @@
     let effect = $state(upgrade.effect())
     let canBuy = $state(upgrade.canBuy())
     let visible = $state(upgrade.visible())
-
+    
+    let rootEl
     onMount(() => {
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
+            if (!rootEl) remove()
+
             bought = upgrade.bought
             cost = upgrade.cost()
             effect = upgrade.effect()
@@ -25,27 +28,29 @@
     });
 </script>
 
-{#if visible || bought}
-    <div class="main">
-        <Button
-            color={["var(--green-300)"]}
-            disabled={!canBuy && !bought}
-            active={bought}
-            on:click={() => upgrade.buy()}
-        >
-            {@render desc(effect)}<br>
-            {#if bought}
-                <b>BOUGHT</b>
-            {:else}
-                <Resource id={cost[1]} amountOverride={cost[0]} />
-            {/if}
-        </Button>
-    </div>
-{/if}
+<div class="main" class:hidden={!(visible || bought)} bind:this={rootEl}>
+    <Button
+        color={["var(--green-300)"]}
+        disabled={!canBuy && !bought}
+        active={bought}
+        on:click={() => upgrade.buy()}
+    >
+        {@render desc(effect)}<br>
+        {#if bought}
+            <b>BOUGHT</b>
+        {:else}
+            <Resource id={cost[1]} amountOverride={cost[0]} />
+        {/if}
+    </Button>
+</div>
 
 <style>
     .main {
         width: 200px;
+    }
+
+    .hidden :global(button) {
+        display: none;
     }
 
     .main :global(button) {

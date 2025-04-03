@@ -7,15 +7,18 @@
     let achievements = $state(data.achievements)
     let completed = $derived(achievements.filter(v => v.unlocked).length)
     let gilded = $derived(achievements.filter(v => v.gilded).length)
-
+    
+    let rootEl
     onMount(() => {
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
+            if (!rootEl) remove()
+
             achievements = data.achievements
         })
     })
 </script>
 
-<div class="main">
+<div class="main" bind:this={rootEl}>
     <span>{completed} <span class="gild">({gilded})</span> out of {achievements.length} completed.</span>
     {#each Array(5) as _,y}
         <div class="row">

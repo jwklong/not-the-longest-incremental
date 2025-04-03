@@ -6,15 +6,18 @@
     let { requirement = () => false, children } = $props()
 
     let result = $state(requirement())
-
+    
+    let rootEl
     onMount(() => {
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
+            if (!rootEl) remove()
+
             result = requirement()
         })
     })
 </script>
 
-<div class="milestone" class:active={result}>
+<div class="milestone" class:active={result} bind:this={rootEl}>
     {@render children()}
 </div>
 

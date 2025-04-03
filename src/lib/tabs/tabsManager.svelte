@@ -13,9 +13,13 @@
     let itemsVisible = $state({})
     for (let item of items) {
         itemsVisible[item.id] = item.visible ? item.visible() : true
-    }
+    }    
+    
+    let rootEl
     onMount(() => {
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
+            if (!rootEl) remove()
+
             for (let item of items) {
                 itemsVisible[item.id] = item.visible ? item.visible() : true
             }
@@ -23,7 +27,7 @@
     })
 </script>
 
-<div class="main">
+<div class="main" bind:this={rootEl}>
     <div class="tabs">
         {#each items as item}
             {#if itemsVisible[item.id]}

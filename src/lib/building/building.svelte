@@ -15,9 +15,12 @@
     let effect = $state(building.effect())
     let canBuy = $state(building.canBuy())
     let visible = $state(building.visible())
-
+    
+    let rootEl
     onMount(() => {
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
+            if (!rootEl) remove()
+
             amount = building.amount
             effect = building.effect()
             canBuy = building.canBuy()
@@ -26,20 +29,18 @@
     });
 </script>
 
-{#if visible}
-    <div class="main">
-        <img src={image} alt="" />
-        <span>
-            {amount.toStringWhole(5, 3)} {name}s
-            {@render generation(effect)}
-        </span>
-        <Button
-            disabled={!canBuy}
-            on:click={() => building.buy()}
-            color={["var(--green-300)"]}
-        >Buy (<Resource id={cost[1]} amountOverride={cost[0].eval(amount)} />)</Button>
-    </div>
-{/if}
+<div class="main" class:hidden={!visible} bind:this={rootEl}>
+    <img src={image} alt="" />
+    <span>
+        {amount.toStringWhole(5, 3)} {name}s
+        {@render generation(effect)}
+    </span>
+    <Button
+        disabled={!canBuy}
+        on:click={() => building.buy()}
+        color={["var(--green-300)"]}
+    >Buy (<Resource id={cost[1]} amountOverride={cost[0].eval(amount)} />)</Button>
+</div>
 
 <style>
     .main {
@@ -48,6 +49,10 @@
         align-items: center;
 
         width: 480px;
+    }
+
+    .hidden {
+        display: none;
     }
 
     img {

@@ -16,9 +16,12 @@
         .filter(v => quarry.inventory[v.id].amount.gt(0))
         .map(v => [v, quarry.inventory[v.id]])
     )
-
+    
+    let rootEl
     onMount(() => {
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
+            if (!rootEl) remove()
+
             ores = quarry.ores
                 .filter(v => quarry.inventory[v.id].amount.gt(0))
                 .map(v => [v, quarry.inventory[v.id]])
@@ -26,7 +29,7 @@
     });
 </script>
 
-<div>
+<div bind:this={rootEl}>
     {#each ores as ore}
         <InventoryItem ore={ore[0]} resource={ore[1]} />
     {/each}

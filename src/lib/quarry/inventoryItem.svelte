@@ -13,9 +13,12 @@
     } = $props()
 
     let amount = $state(resource.amount.mul(ore.quarry.globalValueBoost()))
-
+    
+    let rootEl
     onMount(() => {
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
+            if (!rootEl) remove()
+
             amount = resource.amount.mul(ore.quarry.globalValueBoost())
         })
     });
@@ -29,7 +32,7 @@
     }
 </script>
 
-<div class="main">
+<div class="main" bind:this={rootEl}>
     <img src={ore.image} alt={ore.name} />
     <div class="left">
         <span class="name">{ore.name}</span>

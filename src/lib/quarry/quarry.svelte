@@ -18,9 +18,12 @@
     let maxHealth = $state(onum())
     let value = $state(null)
     let clickDamage = $state(quarry.clickDamage())
-
+    
+    let rootEl
     onMount(() => {
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
+            if (!rootEl) remove()
+
             unlockedLayers = quarry.layers.filter(v => v.unlocked())
             currentLayer = quarry.currentLayer
             currentOre = quarry.currentOre
@@ -40,7 +43,7 @@
     }
 </script>
 
-<div class="main">
+<div class="main" bind:this={rootEl}>
     <div class="ore">
         {#if currentOre && !currentOre.isDestroyed()}
             <img src={currentOre.image} alt={currentOre.name} />

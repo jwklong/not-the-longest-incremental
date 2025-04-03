@@ -8,9 +8,12 @@
     let achievement = $state(data.achievements.find(v => v.location[0] == y && v.location[1] == x))
     let unlocked = $state(achievement ? achievement.unlocked : false)
     let gilded = $state(achievement ? achievement.gilded : false)
-
+    
+    let rootEl
     onMount(() => {
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
+            if (!rootEl) remove()
+
             unlocked = achievement ? achievement.unlocked : false
             gilded = achievement ? achievement.gilded : false
         })
@@ -18,7 +21,7 @@
 </script>
 
 {#if achievement}
-    <div class="achievement" class:completed={unlocked} class:gilded={gilded}>
+    <div class="achievement" class:completed={unlocked} class:gilded={gilded} bind:this={rootEl}>
         <span class="title">{achievement.name}</span>
         <div class="number">
             {y}{x}

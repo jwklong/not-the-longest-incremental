@@ -8,9 +8,12 @@
     import globalUpdater from "$lib/globalUpdater";
 
     let maxBtn = $state(false)
-
+    
+    let rootEl
     onMount(() => {
-        globalUpdater.addUpdate(() => {
+        globalUpdater.addUpdate((_, remove) => {
+            if (!rootEl) remove()
+
             maxBtn = data.layers['booster'].hasReset
         })
     })
@@ -34,7 +37,7 @@
         data.buildings['maker'].maxBuy()
     }
 </script>
-<div class="main">
+<div class="main" bind:this={rootEl}>
     {#if maxBtn}
         <Button on:click={buyMax}>Buy max</Button>
     {/if}
