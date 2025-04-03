@@ -1,6 +1,12 @@
 <div class="main">
     <div>
-        <h3>v0.2.0 - The Labour Update</h3>
+        <h3>v0.2.1</h3>
+        <ul>
+            <li>I FIXED THE LAG!!! no more lag Hahhah</li>
+        </ul>
+    </div>
+    <div>
+        <h2>v0.2.0 - The Labour Update</h2>
         <ul>
             <li>the quarry! mine ores and get euros</li>
             <li>6 new upgrades</li>
