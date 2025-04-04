@@ -36,7 +36,8 @@ class Data {
     achievements = achievements
 
     settings = {
-        disableNews: false
+        disableNews: false,
+        darkMode: false
     }
 
     tick(dt) {

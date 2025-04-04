@@ -53,6 +53,12 @@
         width: 100%;
         position: relative;
         overflow: hidden;
+        color: #000;
+    }
+    :global(.dark) div {
+        background: #000;
+        border-color: #fff;
+        color: #fff;
     }
 
     .text {

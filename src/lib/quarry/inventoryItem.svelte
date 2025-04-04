@@ -93,6 +93,10 @@
         color: var(--blue-950);
         border-radius: 4px;
     }
+    :global(.dark) .value {
+        background-color: #111;
+        color: #fff;
+    }
 
     .right {
         padding-bottom: 8px;

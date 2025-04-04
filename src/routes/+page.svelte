@@ -95,7 +95,7 @@
     <title>Not The Longest Incremental</title>
 </svelte:head>
 
-<div class="root">
+<div class="root" class:dark={settings.darkMode}>
     {#if !settings.disableNews}<News />{/if}
     <h1>You have <Resource id="points" showGain /></h1>
 
@@ -229,6 +229,10 @@
         flex-direction: column;
         align-items: center;
         gap: 8px;
+    }
+    .dark.root {
+        background-color: #111;
+        color: var(--blue-50);
     }
 
     :global(h1, h2, h3, h4, h5, h6) {
