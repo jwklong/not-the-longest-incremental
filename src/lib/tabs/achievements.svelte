@@ -39,6 +39,10 @@
         text-shadow: 0 0 4px var(--gold-200);
         font-weight: bold;
     }
+    :global(.dark) .gild {
+        color: var(--gold-500);
+        text-shadow: 0 0 4px var(--gold-700);
+    }
 
     .row {
         display: flex;
