@@ -183,7 +183,7 @@ p1.cost = function() {
     return [base, "points"]
 }
 p1.effect = function() {
-    let base = Object.values(data.buildings).reduce((a, b) => a.add(b.amount), onum())
+    let base = [maker, generator, producer, fabricator, provider].reduce((a, b) => a.add(b.amount), onum())
     base = base.add(1)
     base = base.logBase(10)
     if (data.buildings['booster'].amount.gte(4)) base = base.pow(1.3)
