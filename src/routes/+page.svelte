@@ -80,6 +80,10 @@
         }
         requestAnimationFrame(tick)
 
+        setInterval(() => {
+            localStorage.setItem("NTLIdata", data.serialize())
+        }, 60000)
+
         window.onbeforeunload = () => {
             localStorage.setItem("NTLIdata", data.serialize())
         }
